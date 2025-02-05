@@ -1,0 +1,21 @@
+postcode-service:
+  database:
+    host: localhost
+    port: 5432
+    database: scopeviso
+    username: postgres
+    password: postgres
+
+server:
+  port: 8081
+
+spring:
+  r2dbc:
+    url: r2dbc:postgresql://${postcode-service.database.host}:${postcode-service.database.port}/${postcode-service.database.database}?schema=postcode_service
+    username: ${postcode-service.database.username}
+    password: ${postcode-service.database.password}
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.xml
+    url: jdbc:postgresql://${postcode-service.database.host}:${postcode-service.database.port}/${postcode-service.database.database}
+    user: ${postcode-service.database.username}
+    password: ${postcode-service.database.password}

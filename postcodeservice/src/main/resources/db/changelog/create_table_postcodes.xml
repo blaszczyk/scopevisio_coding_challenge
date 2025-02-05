@@ -1,0 +1,63 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="create_tables" author="michael">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="POSTCODES"/>
+            </not>
+        </preConditions>
+        <createTable tableName="POSTCODES" schemaName="postcode_service">
+            <column name="iso_3166_1_alpha_2" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="iso_3166_1_alpha_2_region_code" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="region1" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="region2" type="text">
+                <constraints nullable="true"/>
+            </column>
+            <column name="region3" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="region4" type="text">
+                <constraints nullable="true"/>
+            </column>
+            <column name="postleitzahl" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ort" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="area1" type="text">
+                <constraints nullable="true"/>
+            </column>
+            <column name="area2" type="text">
+                <constraints nullable="true"/>
+            </column>
+            <column name="latitude" type="float">
+                <constraints nullable="false"/>
+            </column>
+            <column name="longitude" type="float">
+                <constraints nullable="false"/>
+            </column>
+            <column name="zeitzone" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="utc" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sommerzeit" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+            <column name="active" type="text">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

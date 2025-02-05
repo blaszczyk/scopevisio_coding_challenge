@@ -1,0 +1,27 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="load_postcodes" author="michael">
+        <loadData tableName="POSTCODES" file="db/postcodes.csv" schemaName="postcode_service" quotchar="&quot;"
+                  separator=",">
+            <column name="iso_3166_1_alpha_2" header="ISO_3166_1_ALPHA_2" type="text" />
+            <column name="iso_3166_1_alpha_2_region_code" header="ISO_3166_1_ALPHA_2_REGION_CODE" type="text" />
+            <column name="region1" header="REGION1" type="text" />
+            <column name="region2" header="REGION2" type="text" />
+            <column name="region3" header="REGION3" type="text" />
+            <column name="region4" header="REGION4" type="text" />
+            <column name="postleitzahl" header="POSTLEITZAHL" type="text" />
+            <column name="ort" header="ORT" type="text" />
+            <column name="area1" header="AREA1" type="text" />
+            <column name="area2" header="AREA2" type="text" />
+            <column name="latitude" header="LATITUDE" type="float" />
+            <column name="longitude" header="LONGITUDE" type="float" />
+            <column name="zeitzone" header="ZEITZONE" type="text" />
+            <column name="utc" header="UTC" type="text" />
+            <column name="sommerzeit" header="SOMMERZEIT" type="boolean" />
+            <column name="active" header="ACTIVE" type="text" />
+        </loadData>
+    </changeSet>
+</databaseChangeLog>
