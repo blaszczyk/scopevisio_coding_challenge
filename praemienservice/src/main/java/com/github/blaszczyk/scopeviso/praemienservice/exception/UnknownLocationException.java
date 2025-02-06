@@ -1,4 +1,6 @@
-package com.github.blaszczyk.scopeviso.praemienservice.domain;
+package com.github.blaszczyk.scopeviso.praemienservice.exception;
+
+import com.github.blaszczyk.scopeviso.praemienservice.domain.Location;
 
 public class UnknownLocationException extends RuntimeException {
 

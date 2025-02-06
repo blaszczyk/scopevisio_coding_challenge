@@ -14,7 +14,7 @@ server:
 
 spring:
   r2dbc:
-    url: r2dbc:postgresql://${praemien-service.database.host}:${praemien-service.database.port}/${praemien-service.database.database}?schema=praemien_service
+    url: r2dbc:postgresql://${praemien-service.database.host}:${praemien-service.database.port}/${praemien-service.database.database}?schema=praemienanfragen_service
     username: ${praemien-service.database.username}
     password: ${praemien-service.database.password}
   liquibase:

@@ -1,5 +1,7 @@
 package com.github.blaszczyk.scopeviso.praemienservice.bi;
 
+import com.github.blaszczyk.scopeviso.praemienservice.exception.UnknownBundeslandException;
+
 public final class RegionFaktorCalculator {
     // TODO: make bundesland an enum ?
     public static float calculate(final String bundesland) {
@@ -20,7 +22,8 @@ public final class RegionFaktorCalculator {
             case "Sachsen-Anhalt" -> 0.5f;
             case "Schleswig-Holstein" -> 1.3f;
             case "Thüringen" -> 0.7f;
-            default -> throw new IllegalStateException("Unexpected bundeslannd: " + bundesland);
+            case "Mallorca" -> 5.0f; // ;)
+            default -> throw new UnknownBundeslandException(bundesland);
         };
     }
 }

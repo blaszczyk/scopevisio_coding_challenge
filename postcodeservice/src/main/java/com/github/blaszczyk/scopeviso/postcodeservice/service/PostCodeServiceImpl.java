@@ -26,7 +26,7 @@ public class PostCodeServiceImpl implements PostCodeService {
                     .map(ResponseEntity::ok);
         }
         else {
-            return Mono.just(ResponseEntity.notFound().build());
+            return Mono.just(ResponseEntity.badRequest().build());
         }
     }
 }

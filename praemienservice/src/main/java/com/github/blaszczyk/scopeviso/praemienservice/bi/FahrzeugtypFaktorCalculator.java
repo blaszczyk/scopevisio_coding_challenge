@@ -7,7 +7,7 @@ public class FahrzeugtypFaktorCalculator {
         return switch (fahrzeugtyp) {
             case LKW -> 2.0f;
             case PKW -> 1.0f;
-            case Mopped -> 0.5f;
+            case ZWEIRAD -> 0.5f;
         };
     }
 }
