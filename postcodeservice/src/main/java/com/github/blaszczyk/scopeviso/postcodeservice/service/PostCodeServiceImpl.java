@@ -18,7 +18,7 @@ public class PostCodeServiceImpl implements PostCodeService {
     private PostcodesRepository locationRepository;
 
     @Override
-    public Mono<ResponseEntity<List<Location>>> getOrtsDaten(String plz) {
+    public Mono<ResponseEntity<List<Location>>> getLocations(String plz) {
         if (PostleitzahlValidator.isValid(plz)){
             return locationRepository.findByPostleitzahl(plz)
                     .map(LocationTransformer::transform)

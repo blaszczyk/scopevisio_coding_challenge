@@ -1,0 +1,42 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="create_tables" author="michael">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="PRAEMIENANFRAGEN"/>
+            </not>
+        </preConditions>
+        <createTable tableName="PRAEMIENANFRAGEN" schemaName="praemienanfragen_service">
+            <column name="id" type="uuid">
+                <constraints primaryKey="true" nullable="false" primaryKeyName="PRAEMIENANFRAGEN_PK"/>
+            </column>
+            <column name="kilometerleistung" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="fahrzeugtyp" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="bundesland" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="kreis" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="stadt" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="postleitzahl" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="bezirk" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="praemie" type="text">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

@@ -14,5 +14,5 @@ public interface PostCodeService {
 
     @GetMapping(path = "/location/{postleitzahl}",
             produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8")
-    Mono<ResponseEntity<List<Location>>> getOrtsDaten(@PathVariable("postleitzahl") final String plz);
+    Mono<ResponseEntity<List<Location>>> getLocations(@PathVariable("postleitzahl") final String plz);
 }
