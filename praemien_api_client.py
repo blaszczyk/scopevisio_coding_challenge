@@ -6,8 +6,8 @@ host = 'localhost:8082'
 path = '/praemien/api/anfrage'
 
 anfrage = {
-	'kilometerleistung': 10000,
-	'fahrzeugtyp': 'PKW',
+	'kilometerleistung': 30000,
+	'fahrzeugtyp': 'LKW',
 	'bundesland': 'Nordrhein-Westfalen',
 	'kreis': 'Rhein-Sieg-Kreis',
 	'stadt': 'Troisdorf',

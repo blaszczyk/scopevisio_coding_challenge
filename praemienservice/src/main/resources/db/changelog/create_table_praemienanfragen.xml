@@ -9,7 +9,7 @@
                 <tableExists tableName="PRAEMIENANFRAGEN"/>
             </not>
         </preConditions>
-        <createTable tableName="PRAEMIENANFRAGEN" schemaName="praemienanfragen_service">
+        <createTable tableName="PRAEMIENANFRAGEN" schemaName="praemien_service">
             <column name="id" type="uuid">
                 <constraints primaryKey="true" nullable="false" primaryKeyName="PRAEMIENANFRAGEN_PK"/>
             </column>

@@ -5,9 +5,9 @@ import com.github.blaszczyk.scopeviso.praemienservice.domain.Fahrzeugtyp;
 public class FahrzeugtypFaktorCalculator {
     public static float calculate(final Fahrzeugtyp fahrzeugtyp) {
         return switch (fahrzeugtyp) {
-            case LKW -> 2.0f;
-            case PKW -> 1.0f;
-            case ZWEIRAD -> 0.5f;
+            case LKW -> 1000.f;
+            case PKW -> 500.f;
+            case ZWEIRAD -> 300.f;
         };
     }
 }
