@@ -1,0 +1,42 @@
+<div class="container">
+    <mat-grid-list cols="1" rowHeight="3:1">
+        <mat-grid-tile>
+            <h1>Prämie Berechnen</h1>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <mat-form-field>
+                <mat-label>Fahrzeugtyp</mat-label>
+                <mat-select [(ngModel)]="selectedFahrzeugtyp" name="fahrzeugtyp">
+                  @for (fahrzeugtyp of fahrzeugtypen; track fahrzeugtyp) {
+                    <mat-option [value]="fahrzeugtyp">{{fahrzeugtyp}}</mat-option>
+                  }
+                </mat-select>
+            </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <mat-form-field class="example-full-width">
+                <mat-label>Kilometerleistung</mat-label>
+                <input matInput type="number" placeholder="Kilometerleistung" [(ngModel)]="kilometerleistung">
+            </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <mat-form-field class="example-full-width">
+                <mat-label>Postleitzahl</mat-label>
+                <input matInput maxlength="5" placeholder="Postleitzahl" [(ngModel)]="postleitzahl" (change)="checkPlz()">
+            </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <mat-form-field>
+                <mat-label>Bezirk</mat-label>
+                <mat-select [(ngModel)]="selectedLocation" name="location">
+                  @for (location of locations; track location) {
+                    <mat-option [value]="location">{{location.stadt}}, {{location.bezirk}}</mat-option>
+                  }
+                </mat-select>
+            </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <button mat-raised-button [disabled]="!inputValid()" (click)="requestPraemienAnfrage()">Anfrage Senden</button>
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>
