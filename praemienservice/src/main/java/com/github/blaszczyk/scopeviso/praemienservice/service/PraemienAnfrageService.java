@@ -9,7 +9,7 @@ import reactor.core.publisher.Mono;
 
 @RequestMapping("/praemien/api")
 @ResponseBody
-public interface PraemienAnfragenService {
+public interface PraemienAnfrageService {
     @PostMapping(path = "/anfrage",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)

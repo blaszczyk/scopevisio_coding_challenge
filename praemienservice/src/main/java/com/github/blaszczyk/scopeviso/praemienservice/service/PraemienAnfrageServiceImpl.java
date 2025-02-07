@@ -16,13 +16,13 @@ import reactor.core.publisher.Mono;
 import java.util.function.Function;
 
 @RestController
-public class PraemienAnfragenServiceImpl implements PraemienAnfragenService {
+public class PraemienAnfrageServiceImpl implements PraemienAnfrageService {
 
     @Autowired
     private PostcodeClient postcodeClient;
 
     @Autowired
-    private PraemienAnfrageRepository praemienAnfragenRepository;
+    private PraemienAnfrageRepository praemienAnfrageRepository;
     
     @Override
     public Mono<ResponseEntity<PraemienAnfrageResponse>> postPraemienAnfrage(PraemienAnfrageRequest anfrage) {
@@ -30,13 +30,15 @@ public class PraemienAnfragenServiceImpl implements PraemienAnfragenService {
                 .doOnNext(PraemienAnfrageRequestValidator.validate(anfrage))
                 .map(ignore -> PraemienCalculator.calculate(anfrage))
                 .flatMap(persist(anfrage))
-                .map(ResponseEntity::ok);
+                .map(ResponseEntity::ok)
+                .onErrorResume(e -> Mono.just(ResponseEntity.badRequest().build()));
     }
 
-    private Function<? super Integer,? extends Mono<PraemienAnfrageResponse>> persist(PraemienAnfrageRequest anfrage) {
+    private Function<? super Integer,? extends Mono<PraemienAnfrageResponse>> persist(PraemienAnfrageRequest request) {
         return praemie -> {
-            final PraemienAnfrage praemienAnfragen = PraemienAnfrageTransformer.transform(anfrage, praemie);
-            return praemienAnfragenRepository.save(praemienAnfragen).map(a -> new PraemienAnfrageResponse(praemie, a.getId()));
+            final PraemienAnfrage praemienAnfrage = PraemienAnfrageTransformer.transform(request, praemie);
+            return praemienAnfrageRepository.save(praemienAnfrage)
+                    .map(a -> new PraemienAnfrageResponse(praemie, a.getId()));
         };
     }
 

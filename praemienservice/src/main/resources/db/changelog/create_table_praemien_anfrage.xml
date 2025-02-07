@@ -27,7 +27,7 @@
                 <constraints nullable="false"/>
             </column>
             <column name="bezirk" type="text">
-                <constraints nullable="false"/>
+                <constraints nullable="true"/>
             </column>
             <column name="praemie" type="int">
                 <constraints nullable="false"/>
