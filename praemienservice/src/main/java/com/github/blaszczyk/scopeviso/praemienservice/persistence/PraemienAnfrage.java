@@ -1,12 +1,13 @@
 package com.github.blaszczyk.scopeviso.praemienservice.persistence;
 
 import com.github.blaszczyk.scopeviso.praemienservice.domain.Fahrzeugtyp;
+import org.springframework.data.annotation.Id;
 
 import java.util.UUID;
 
 public class PraemienAnfrage {
 
-    private UUID id;
+    private UUID praemienId;
 
     private int kilometerleistung;
 
@@ -24,12 +25,12 @@ public class PraemienAnfrage {
 
     private int praemie;
 
-    public UUID getId() {
-        return id;
+    public UUID getPraemienId() {
+        return praemienId;
     }
 
-    public void setId(UUID id) {
-        this.id = id;
+    public void setPraemienId(UUID praemienId) {
+        this.praemienId = praemienId;
     }
 
     public int getKilometerleistung() {

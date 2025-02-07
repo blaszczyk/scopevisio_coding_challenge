@@ -3,11 +3,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
-import {MatGridListModule} from '@angular/material/grid-list';
-import {FormsModule} from '@angular/forms';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { FormsModule } from '@angular/forms';
 import { Fahrzeugtyp, ILocation, IPraemienAnfrageRequest } from '../domain';
 import { LocationService } from '../location.service';
 import { PraemienService } from '../praemien.service';
+import { Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-praemien-anfrage',
@@ -29,9 +30,11 @@ export class PraemienAnfrageComponent {
 
   kilometerleistung: number | null = null;
 
-  constructor(private readonly locationService: LocationService, private readonly praemienService: PraemienService) {}
+  constructor(private readonly locationService: LocationService, 
+    private readonly praemienService: PraemienService,
+    private readonly router: Router) {}
 
-  checkPlz() {
+  changePostleitzahl() {
     const regex = /[0-9]{5}/;
     this.selectedLocation = null;
     if ( regex.test(this.postleitzahl) ) {
@@ -57,6 +60,7 @@ export class PraemienAnfrageComponent {
         kilometerleistung: this.kilometerleistung!,
         fahrzeugtyp: this.selectedFahrzeugtyp!
     };
-    this.praemienService.postAnfrage(request).subscribe(response => alert("Praemie: " + response.praemie))
+    this.praemienService.postAnfrage(request)
+      .subscribe(response => this.router.navigateByUrl('summary/' + response.id));
   }
 }

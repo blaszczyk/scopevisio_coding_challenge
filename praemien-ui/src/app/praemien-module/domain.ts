@@ -21,3 +21,5 @@ export interface IPraemienAnfrageResponse {
     id: string;
     praemie: number;
 }
+
+export interface IPraemienAnfrageSummary extends IPraemienAnfrageRequest, IPraemienAnfrageResponse {}
