@@ -4,7 +4,7 @@ import com.github.blaszczyk.scopeviso.praemienservice.domain.Fahrzeugtyp;
 
 import java.util.UUID;
 
-public class Praemienanfragen {
+public class PraemienAnfrage {
 
     private UUID id;
 

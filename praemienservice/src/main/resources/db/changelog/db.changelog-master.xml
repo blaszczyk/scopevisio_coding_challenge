@@ -7,6 +7,6 @@
         <sql>CREATE SCHEMA praemien_service</sql>
     </changeSet>
 
-    <include file="db/changelog/create_table_praemienanfragen.xml" />
+    <include file="db/changelog/create_table_praemien_anfrage.xml" />
 
 </databaseChangeLog>

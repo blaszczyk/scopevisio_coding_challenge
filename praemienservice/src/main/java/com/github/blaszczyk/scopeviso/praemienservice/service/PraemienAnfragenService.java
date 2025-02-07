@@ -13,5 +13,5 @@ public interface PraemienAnfragenService {
     @PostMapping(path = "/anfrage",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    Mono<ResponseEntity<PraemienAnfrageResponse>> fragePraemieAn(@RequestBody final PraemienAnfrageRequest anfrage);
+    Mono<ResponseEntity<PraemienAnfrageResponse>> postPraemienAnfrage(@RequestBody final PraemienAnfrageRequest anfrage);
 }

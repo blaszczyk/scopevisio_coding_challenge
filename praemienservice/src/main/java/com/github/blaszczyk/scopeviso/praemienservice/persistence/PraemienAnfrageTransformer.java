@@ -4,9 +4,9 @@ import com.github.blaszczyk.scopeviso.praemienservice.domain.PraemienAnfrageRequ
 
 import java.util.UUID;
 
-public class PraemienanfragenTransformer {
-    public static Praemienanfragen transform(final PraemienAnfrageRequest request, final int praemie) {
-        final var result = new Praemienanfragen();
+public class PraemienAnfrageTransformer {
+    public static PraemienAnfrage transform(final PraemienAnfrageRequest request, final int praemie) {
+        final var result = new PraemienAnfrage();
         result.setId(UUID.randomUUID());
         result.setBundesland(request.bundesland());
         result.setKreis(request.kreis());

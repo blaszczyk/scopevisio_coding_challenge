@@ -3,15 +3,10 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
-    <changeSet id="create_tables" author="michael">
-        <preConditions onFail="MARK_RAN">
-            <not>
-                <tableExists tableName="PRAEMIENANFRAGEN"/>
-            </not>
-        </preConditions>
-        <createTable tableName="PRAEMIENANFRAGEN" schemaName="praemien_service">
+    <changeSet id="create_table_praemien_anfrage" author="michael">
+        <createTable tableName="PRAEMIEN_ANFRAGE" schemaName="praemien_service">
             <column name="id" type="uuid">
-                <constraints primaryKey="true" nullable="false" primaryKeyName="PRAEMIENANFRAGEN_PK"/>
+                <constraints primaryKey="true" nullable="false" primaryKeyName="PRAEMIEN_ANFRAGE_PK"/>
             </column>
             <column name="kilometerleistung" type="int">
                 <constraints nullable="false"/>
