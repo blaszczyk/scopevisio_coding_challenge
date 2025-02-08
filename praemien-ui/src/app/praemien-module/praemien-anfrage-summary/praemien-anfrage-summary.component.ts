@@ -20,7 +20,6 @@ export class PraemienAnfrageSummaryComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
-      console.log(params);
       const id: string = params.get('id')!;
       this.praemienService.getSummary(id).subscribe(summary => {
         this.summary = summary;

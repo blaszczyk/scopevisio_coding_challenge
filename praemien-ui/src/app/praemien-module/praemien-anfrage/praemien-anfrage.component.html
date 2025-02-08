@@ -30,7 +30,7 @@
                 <mat-label>Bezirk</mat-label>
                 <mat-select [(ngModel)]="selectedLocation" name="location">
                   @for (location of locations; track location) {
-                    <mat-option [value]="location">{{location.stadt}}, {{location.bezirk}}</mat-option>
+                    <mat-option [value]="location">{{location.bezirk ? location.bezirk + ', ' : ''}}{{location.stadt}}</mat-option>
                   }
                 </mat-select>
             </mat-form-field>
