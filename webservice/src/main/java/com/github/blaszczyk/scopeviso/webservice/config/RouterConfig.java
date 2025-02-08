@@ -36,7 +36,8 @@ public class RouterConfig {
 
     @Bean
     public RouterFunction<ServerResponse> indexRouter(@Value("classpath:/static/ui/index.html") final Resource indexHtml) {
-        return route(GET("/ui/"), request -> ok()
+        return route(GET("/ui/").or(GET("/ui/summary/*")), request ->
+                ok()
                 .contentType(MediaType.TEXT_HTML)
                 .bodyValue(indexHtml)
         );
@@ -44,7 +45,7 @@ public class RouterConfig {
 
     @Bean
     RouterFunction<ServerResponse> redirectToUi() {
-        return route(GET("/"), req ->
+        return route(GET("/"), request ->
                 ServerResponse.temporaryRedirect(URI.create("/ui/"))
                         .build());
     }

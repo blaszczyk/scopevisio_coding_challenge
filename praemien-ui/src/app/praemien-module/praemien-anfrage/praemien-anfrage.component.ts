@@ -8,7 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { Fahrzeugtyp, ILocation, IPraemienAnfrageRequest } from '../domain';
 import { LocationService } from '../location.service';
 import { PraemienService } from '../praemien.service';
-import { Route, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-praemien-anfrage',
