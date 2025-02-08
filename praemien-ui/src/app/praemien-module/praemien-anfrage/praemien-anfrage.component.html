@@ -22,13 +22,13 @@
         <mat-grid-tile>
             <mat-form-field class="example-full-width">
                 <mat-label>Postleitzahl</mat-label>
-                <input matInput maxlength="5" placeholder="Postleitzahl" [(ngModel)]="postleitzahl" (change)="changePostleitzahl()">
+                <input matInput maxlength="5" placeholder="Postleitzahl" [(ngModel)]="postleitzahl" (keyup)="changePostleitzahl()">
             </mat-form-field>
         </mat-grid-tile>
         <mat-grid-tile>
             <mat-form-field>
-                <mat-label>Bezirk</mat-label>
-                <mat-select [(ngModel)]="selectedLocation" name="location">
+                <mat-label>Ort</mat-label>
+                <mat-select [(ngModel)]="selectedLocation" name="location" [disabled]="locations.length === 0">
                   @for (location of locations; track location) {
                     <mat-option [value]="location">{{location.bezirk ? location.bezirk + ', ' : ''}}{{location.stadt}}</mat-option>
                   }
