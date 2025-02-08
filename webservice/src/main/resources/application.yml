@@ -1,0 +1,13 @@
+server:
+  port: 8080
+spring:
+  mvc:
+    static-path-pattern: /ui/**
+postcodeservice:
+  host: localhost
+  port: 8081
+  path: /postcode/
+praemienservice:
+  host: localhost
+  port: 8082
+  path: /praemien/
