@@ -38,7 +38,13 @@ export class PraemienAnfrageComponent {
     const regex = /[0-9]{5}/;
     this.selectedLocation = null;
     if ( regex.test(this.postleitzahl) ) {
-      this.locationService.getLocations(this.postleitzahl).subscribe(locations => this.locations = locations);
+      this.locationService.getLocations(this.postleitzahl)
+        .subscribe(locations => {
+          this.locations = locations;
+          if (locations.length === 1) {
+            this.selectedLocation = locations[0];
+          }
+        });
     }
     else {
       this.locations = [];
