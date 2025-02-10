@@ -1,0 +1,40 @@
+version: '3.8'
+services:
+    database:
+        image: postgres
+        environment:
+            - POSTGRES_DB=scopeviso
+            - POSTGRES_USER=postgres
+            - POSTGRES_PASSWORD=postgres
+
+    postcodeservice:
+        image: postcodeservice
+        environment:
+            - DATABASE_HOST=database
+            - DATABASE_PORT=5432
+            - DATABASE_USER=postgres
+            - DATABASE_PASSWORD=postgres
+        depends_on:
+            - database
+
+    praemienservice:
+        image: praemienservice
+        environment:
+            - DATABASE_HOST=database
+            - DATABASE_PORT=5432
+            - DATABASE_USER=postgres
+            - DATABASE_PASSWORD=postgres
+            - POSTCODESERVICE_HOST=postcodeservice
+        ports:
+            - 8082:8082
+        depends_on:
+            - database
+            - postcodeservice
+
+    webservice:
+        image: webservice
+        environment:
+            - POSTCODESERVICE_HOST=postcodeservice
+            - PRAEMIENSERVICE_HOST=praemienservice
+        ports:
+            - 8080:8080

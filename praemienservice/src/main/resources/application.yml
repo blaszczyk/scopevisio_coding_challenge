@@ -1,24 +1,25 @@
-praemien-service:
-  database:
-    host: localhost
-    port: 5432
-    database: scopeviso
-    username: postgres
-    password: postgres
+database:
+  host: localhost
+  port: 5432
+  database: scopeviso
+  username: postgres
+  password: postgres
 
-postcode-service:
-  url: http://localhost:8081/postcode/api/location/
+postcodeservice:
+  host: localhost
+  port: 8081
+  url: http://${postcodeservice.host}:${postcodeservice.port}/postcode/api/location/
 
 server:
   port: 8082
 
 spring:
   r2dbc:
-    url: r2dbc:postgresql://${praemien-service.database.host}:${praemien-service.database.port}/${praemien-service.database.database}?schema=praemien_service
-    username: ${praemien-service.database.username}
-    password: ${praemien-service.database.password}
+    url: r2dbc:postgresql://${database.host}:${database.port}/${database.database}?schema=praemien_service
+    username: ${database.username}
+    password: ${database.password}
   liquibase:
     change-log: classpath:db/changelog/db.changelog-master.xml
-    url: jdbc:postgresql://${praemien-service.database.host}:${praemien-service.database.port}/${praemien-service.database.database}
-    user: ${praemien-service.database.username}
-    password: ${praemien-service.database.password}
+    url: jdbc:postgresql://${database.host}:${database.port}/${database.database}
+    user: ${database.username}
+    password: ${database.password}

@@ -36,6 +36,8 @@ dependencies {
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
+bootJar.archiveFileName = "${rootProject.name}.jar"
+
 tasks.named('test') {
 	outputs.dir snippetsDir
 	useJUnitPlatform()
