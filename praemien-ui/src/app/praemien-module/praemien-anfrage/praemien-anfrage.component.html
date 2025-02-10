@@ -8,7 +8,7 @@
                 <mat-label>Fahrzeugtyp</mat-label>
                 <mat-select [(ngModel)]="selectedFahrzeugtyp" name="fahrzeugtyp">
                   @for (fahrzeugtyp of fahrzeugtypen; track fahrzeugtyp) {
-                    <mat-option [value]="fahrzeugtyp">{{fahrzeugtyp}}</mat-option>
+                    <mat-option [value]="fahrzeugtyp.id">{{fahrzeugtyp.displayName}}</mat-option>
                   }
                 </mat-select>
             </mat-form-field>
@@ -22,7 +22,7 @@
         <mat-grid-tile>
             <mat-form-field class="example-full-width">
                 <mat-label>Postleitzahl</mat-label>
-                <input matInput maxlength="5" placeholder="Postleitzahl" [(ngModel)]="postleitzahl" (keyup)="changePostleitzahl()">
+                <input matInput maxlength="5" placeholder="Postleitzahl" [(ngModel)]="postleitzahl" (keyup)="updateLocations()">
             </mat-form-field>
         </mat-grid-tile>
         <mat-grid-tile>
@@ -30,7 +30,7 @@
                 <mat-label>Ort</mat-label>
                 <mat-select [(ngModel)]="selectedLocation" name="location" [disabled]="locations.length === 0">
                   @for (location of locations; track location) {
-                    <mat-option [value]="location">{{location.bezirk ? location.bezirk + ', ' : ''}}{{location.stadt}}</mat-option>
+                    <mat-option [value]="location">{{location.stadt}} {{location.bezirk}}</mat-option>
                   }
                 </mat-select>
             </mat-form-field>

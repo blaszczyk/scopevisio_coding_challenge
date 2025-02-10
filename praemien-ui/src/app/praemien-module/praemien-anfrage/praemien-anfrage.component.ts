@@ -24,7 +24,11 @@ export class PraemienAnfrageComponent {
 
   selectedLocation: ILocation | null = null;
 
-  fahrzeugtypen: Fahrzeugtyp[] = [Fahrzeugtyp.LKW, Fahrzeugtyp.PKW, Fahrzeugtyp.ZWEIRAD];
+  fahrzeugtypen: { id:Fahrzeugtyp, displayName: string }[] = [
+    { id: Fahrzeugtyp.LKW, displayName: 'LKW' }, 
+    { id: Fahrzeugtyp.PKW, displayName: 'PKW' },
+    { id: Fahrzeugtyp.ZWEIRAD, displayName: 'Zweirad' },
+  ];
 
   selectedFahrzeugtyp: Fahrzeugtyp | null = null;
 
@@ -34,7 +38,7 @@ export class PraemienAnfrageComponent {
     private readonly praemienService: PraemienService,
     private readonly router: Router) {}
 
-  changePostleitzahl() {
+  updateLocations() {
     const regex = /[0-9]{5}/;
     this.selectedLocation = null;
     if ( regex.test(this.postleitzahl) ) {

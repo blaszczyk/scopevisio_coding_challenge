@@ -6,12 +6,17 @@ import com.github.blaszczyk.scopeviso.praemienservice.domain.PraemienAnfrageRequ
 import com.github.blaszczyk.scopeviso.praemienservice.domain.PraemienAnfrageRequestValidator;
 import com.github.blaszczyk.scopeviso.praemienservice.domain.PraemienAnfrageResponse;
 import com.github.blaszczyk.scopeviso.praemienservice.domain.PraemienAnfrageSummary;
+import com.github.blaszczyk.scopeviso.praemienservice.exception.UnknownBundeslandException;
+import com.github.blaszczyk.scopeviso.praemienservice.exception.UnknownLocationException;
 import com.github.blaszczyk.scopeviso.praemienservice.persistence.PraemienAnfrage;
 import com.github.blaszczyk.scopeviso.praemienservice.persistence.PraemienAnfrageRepository;
 import com.github.blaszczyk.scopeviso.praemienservice.persistence.PraemienAnfrageTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Mono;
 
 import java.util.UUID;
@@ -33,10 +38,7 @@ public class PraemienAnfrageServiceImpl implements PraemienAnfrageService {
                 .map(ignore -> PraemienCalculator.calculate(anfrage))
                 .flatMap(persist(anfrage))
                 .map(ResponseEntity::ok)
-                .onErrorResume(e -> {
-                    e.printStackTrace();
-                    return Mono.just(ResponseEntity.badRequest().build());
-                });
+                .onErrorResume(this::handleError);
     }
 
     @Override
@@ -46,12 +48,23 @@ public class PraemienAnfrageServiceImpl implements PraemienAnfrageService {
                 .map(ResponseEntity::ok);
     }
 
-    private Function<? super Integer,? extends Mono<PraemienAnfrageResponse>> persist(PraemienAnfrageRequest request) {
+    private Function<Integer, Mono<PraemienAnfrageResponse>> persist(PraemienAnfrageRequest request) {
         return praemie -> {
             final PraemienAnfrage praemienAnfrage = PraemienAnfrageTransformer.transform(request, praemie);
             return praemienAnfrageRepository.save(praemienAnfrage)
                     .map(anfrage -> new PraemienAnfrageResponse(praemie, anfrage.getPraemienId()));
         };
+    }
+
+    private Mono<ResponseEntity<PraemienAnfrageResponse>> handleError(Throwable error) {
+        final HttpStatusCode status;
+        if (error instanceof ResponseStatusException responseStatusException) {
+            status = responseStatusException.getStatusCode();
+        }
+        else {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        return Mono.just(ResponseEntity.status(status).build());
     }
 
 }

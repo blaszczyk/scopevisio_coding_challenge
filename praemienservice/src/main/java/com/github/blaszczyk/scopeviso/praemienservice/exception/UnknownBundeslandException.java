@@ -1,8 +1,10 @@
 package com.github.blaszczyk.scopeviso.praemienservice.exception;
 
-public class UnknownBundeslandException extends RuntimeException {
-    public UnknownBundeslandException(final String bundesland) {
-        super("Unknown bundesland: " + bundesland);
-    }
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 
+public class UnknownBundeslandException extends ResponseStatusException {
+    public UnknownBundeslandException(final String bundesland) {
+        super(HttpStatus.BAD_REQUEST, "Unknown bundesland: " + bundesland);
+    }
 }
