@@ -1,0 +1,23 @@
+= Post PraemienAnfrage
+
+
+
+== Specification
+
+=== Request
+
+include::{snippets}/post_anfrage/curl-request.adoc[]
+
+==== Fields
+
+include::{snippets}/post_anfrage/request-fields.adoc[]
+
+
+=== Response
+
+include::{snippets}/post_anfrage/http-response.adoc[]
+
+==== Fields
+
+include::{snippets}/post_anfrage/response-fields.adoc[]
+

@@ -1,7 +1,7 @@
 database:
   host: localhost
   port: 5432
-  database: scopeviso
+  name: scopeviso
   username: postgres
   password: postgres
 
@@ -15,11 +15,11 @@ server:
 
 spring:
   r2dbc:
-    url: r2dbc:postgresql://${database.host}:${database.port}/${database.database}?schema=praemien_service
+    url: r2dbc:postgresql://${database.host}:${database.port}/${database.name}?schema=praemien_service
     username: ${database.username}
     password: ${database.password}
   liquibase:
     change-log: classpath:db/changelog/db.changelog-master.xml
-    url: jdbc:postgresql://${database.host}:${database.port}/${database.database}
+    url: jdbc:postgresql://${database.host}:${database.port}/${database.name}
     user: ${database.username}
     password: ${database.password}

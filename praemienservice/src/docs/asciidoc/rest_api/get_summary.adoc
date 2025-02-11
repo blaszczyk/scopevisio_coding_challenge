@@ -1,0 +1,20 @@
+= Get Summary
+
+Get the summary.
+
+== Request
+
+include::{snippets}/get_summary/curl-request.adoc[]
+
+=== Path Parameters
+include::{snippets}/get_summary/path-parameters.adoc[]
+
+
+== Response
+
+include::{snippets}/get_summary/http-response.adoc[]
+
+=== Response Fields
+
+include::{snippets}/get_summary/response-fields.adoc[]
+

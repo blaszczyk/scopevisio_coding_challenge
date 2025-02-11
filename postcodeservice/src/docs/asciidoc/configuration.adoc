@@ -1,0 +1,28 @@
+= Instance configuration
+
+The PostCodeService is best configured by environment variables.
+
+== Configuration
+
+|===
+|Variable |Default value
+
+|SERVER_PORT
+|8081
+
+|DATABASE_HOST
+|localhost
+
+|DATABASE_PORT
+|5432
+
+|DATABASE_NAME
+|scopeviso
+
+|DATABASE_USERNAME
+|postgres
+
+|DATABASE_PASSWORD
+|postgres
+
+|===

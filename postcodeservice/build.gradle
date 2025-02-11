@@ -5,6 +5,10 @@ plugins {
 	id 'org.asciidoctor.jvm.convert' version '3.3.2'
 }
 
+configurations {
+	asciidoctorExt
+}
+
 group = 'com.github.blaszczyk.scopeviso'
 version = '0.0.1-SNAPSHOT'
 
@@ -31,8 +35,11 @@ dependencies {
 	runtimeOnly 'org.postgresql:r2dbc-postgresql'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'io.projectreactor:reactor-test'
-	testImplementation 'org.springframework.restdocs:spring-restdocs-webtestclient'
+	testImplementation 'org.springframework.restdocs:spring-restdocs-restassured'
+	testImplementation 'org.testcontainers:junit-jupiter'
+	testImplementation 'org.testcontainers:postgresql'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	asciidoctorExt 'org.springframework.restdocs:spring-restdocs-asciidoctor'
 }
 
 bootJar.archiveFileName = "${rootProject.name}.jar"
@@ -44,5 +51,7 @@ tasks.named('test') {
 
 tasks.named('asciidoctor') {
 	inputs.dir snippetsDir
+	configurations 'asciidoctorExt'
 	dependsOn test
+	baseDirFollowsSourceDir()
 }

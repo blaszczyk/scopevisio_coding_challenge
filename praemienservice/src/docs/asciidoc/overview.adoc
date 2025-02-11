@@ -1,0 +1,3 @@
+= Overview
+
+The PraemienAnfrageService accepts requests to calculate the premium depending on the request data. It connects to the PostCodeService to validate the location in the request data. Valid requests are persisted in a Postgres database.

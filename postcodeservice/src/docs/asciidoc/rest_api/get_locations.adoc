@@ -1,0 +1,20 @@
+= Get Summary
+
+Get all locations with a given postcode
+
+== Request
+
+include::{snippets}/get_location/curl-request.adoc[]
+
+=== Path Parameters
+include::{snippets}/get_location/path-parameters.adoc[]
+
+
+== Response
+
+include::{snippets}/get_location/http-response.adoc[]
+
+=== Response Fields
+
+include::{snippets}/get_location/response-fields.adoc[]
+

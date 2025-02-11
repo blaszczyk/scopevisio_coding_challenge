@@ -1,0 +1,3 @@
+= Overview
+
+The PostCodeService serves a list of locations for a given postcode. The dataset is stored in a Postgres database.

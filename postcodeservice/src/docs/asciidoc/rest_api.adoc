@@ -1,0 +1,4 @@
+[#_rest_api]
+= REST API
+
+include::rest_api/get_locations.adoc[leveloffset=+1]

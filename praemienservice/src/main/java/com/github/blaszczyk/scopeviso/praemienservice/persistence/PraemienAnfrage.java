@@ -3,6 +3,7 @@ package com.github.blaszczyk.scopeviso.praemienservice.persistence;
 import com.github.blaszczyk.scopeviso.praemienservice.domain.Fahrzeugtyp;
 import org.springframework.data.annotation.Id;
 
+import java.util.Objects;
 import java.util.UUID;
 
 public class PraemienAnfrage {
@@ -95,5 +96,18 @@ public class PraemienAnfrage {
 
     public void setPraemie(int praemie) {
         this.praemie = praemie;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PraemienAnfrage that = (PraemienAnfrage) o;
+        return kilometerleistung == that.kilometerleistung && praemie == that.praemie && Objects.equals(praemienId, that.praemienId) && fahrzeugtyp == that.fahrzeugtyp && Objects.equals(bundesland, that.bundesland) && Objects.equals(kreis, that.kreis) && Objects.equals(stadt, that.stadt) && Objects.equals(postleitzahl, that.postleitzahl) && Objects.equals(bezirk, that.bezirk);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(praemienId, kilometerleistung, fahrzeugtyp, bundesland, kreis, stadt, postleitzahl, bezirk, praemie);
     }
 }
