@@ -8,25 +8,25 @@ The application consists of three microservices and a web UI. The services and t
 
 ![architecture_praemien.png](architecture_praemien.drawio.png)
 
-## Post Code Service
+### Post Code Service
 * loads location data into database
 * serves locations for queried postcode
 
-## Praemien Service
+### Praemien Service
 * handles PraemienAnfrage requests
 * validates requests using PostCode Service
 * computes premium
 * persists summary
 
-## Web UI
+### Web UI
 * web form for convenient user input
 * summary page
 
-## Web Service + API Gateway
+### Web Service + API Gateway
 * serves static Web UI distribution
 * routes API requests to encapsulated backend services
 
-### Possible Responsibilities
+#### Other Possible Responsibilities
 * Authentication
 * Session management
 * Security issues
