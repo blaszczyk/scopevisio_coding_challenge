@@ -1,4 +1,3 @@
-[#_rest_api]
 = REST API
 
 include::rest_api/post_anfrage.adoc[leveloffset=+1]

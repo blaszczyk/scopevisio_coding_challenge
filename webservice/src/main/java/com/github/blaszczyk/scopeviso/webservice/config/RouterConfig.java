@@ -44,7 +44,7 @@ public class RouterConfig {
     }
 
     @Bean
-    RouterFunction<ServerResponse> redirectToUi() {
+    public RouterFunction<ServerResponse> redirectToUi() {
         return route(GET("/"), request ->
                 ServerResponse.temporaryRedirect(URI.create("/ui/"))
                         .build());

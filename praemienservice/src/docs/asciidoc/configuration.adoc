@@ -1,8 +1,6 @@
-= Instance configuration
+= Configuration
 
 The PraemienAnfrageService is best configured by environment variables.
-
-== Configuration
 
 |===
 |Variable |Default value
@@ -25,10 +23,10 @@ The PraemienAnfrageService is best configured by environment variables.
 |DATABASE_PASSWORD
 |postgres
 
-|POSTCODESERVICE_HOST
+|POSTCODE_SERVICE_HOST
 |localhost
 
-|POSTCODESERVICE_PORT
+|POSTCODE_SERVICE_PORT
 |8081
 
 |===

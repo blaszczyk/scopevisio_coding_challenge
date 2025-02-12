@@ -3,11 +3,11 @@ server:
 spring:
   mvc:
     static-path-pattern: /ui/**
-postcodeservice:
+postcode-service:
   host: localhost
   port: 8081
   path: /postcode/
-praemienservice:
+praemien-service:
   host: localhost
   port: 8082
   path: /praemien/

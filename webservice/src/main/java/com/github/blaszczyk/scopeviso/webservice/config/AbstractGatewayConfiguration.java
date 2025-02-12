@@ -1,6 +1,6 @@
 package com.github.blaszczyk.scopeviso.webservice.config;
 
-public abstract class AbstractGatewayConfiguration {
+abstract class AbstractGatewayConfiguration {
     private String host;
     private String port;
     private String path;

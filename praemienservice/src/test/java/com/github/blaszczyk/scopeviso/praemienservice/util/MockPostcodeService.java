@@ -12,10 +12,8 @@ import static com.github.tomakehurst.wiremock.client.WireMock.*;
 
 public class MockPostcodeService extends WireMockServer {
 
-    public static final int PORT = TestSocketUtils.findAvailableTcpPort();
-
     public MockPostcodeService() {
-        super(PORT);
+        super(TestSocketUtils.findAvailableTcpPort());
     }
 
     public void createGetLocationsExpectation(final String postleitzahl, final int statusCode, final List<Location> response) {

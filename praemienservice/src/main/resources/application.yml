@@ -5,10 +5,10 @@ database:
   username: postgres
   password: postgres
 
-postcodeservice:
+postcode-service:
   host: localhost
   port: 8081
-  url: http://${postcodeservice.host}:${postcodeservice.port}/postcode/api/location/
+  url: http://${postcode-service.host}:${postcode-service.port}/postcode/api/location/
 
 server:
   port: 8082

@@ -57,7 +57,7 @@ class PraemienserviceApplicationTests {
 
 	@DynamicPropertySource
 	static void postcodeServiceProperties (DynamicPropertyRegistry registry) {
-		registry.add("postcodeservice.port", () -> MockPostcodeService.PORT);
+		registry.add("postcode-service.port", mockPostcodeService::port);
 	}
 
 	@LocalServerPort

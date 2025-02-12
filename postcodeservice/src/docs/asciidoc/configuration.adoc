@@ -1,8 +1,6 @@
-= Instance configuration
+= Configuration
 
 The PostCodeService is best configured by environment variables.
-
-== Configuration
 
 |===
 |Variable |Default value

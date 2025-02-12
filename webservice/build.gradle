@@ -2,6 +2,11 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.4.2'
 	id 'io.spring.dependency-management' version '1.1.7'
+	id 'org.asciidoctor.jvm.convert' version '3.3.2'
+}
+
+configurations {
+	asciidoctorExt
 }
 
 group = 'com.github.blaszczyk.scopeviso'
@@ -20,13 +25,21 @@ repositories {
 dependencies {
 	implementation 'org.springframework.cloud:spring-cloud-starter-gateway:4.2.0'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.wiremock:wiremock-jetty12:3.11.0'
+	testImplementation 'io.rest-assured:rest-assured:5.5.0'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	asciidoctorExt 'org.springframework.restdocs:spring-restdocs-asciidoctor'
 }
 
 bootJar.archiveFileName = "${rootProject.name}.jar"
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+tasks.named('asciidoctor') {
+	configurations 'asciidoctorExt'
+	baseDirFollowsSourceDir()
 }
 
 ext {

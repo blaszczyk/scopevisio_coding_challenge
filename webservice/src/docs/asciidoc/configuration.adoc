@@ -1,0 +1,23 @@
+= Configuration
+
+The PraemienWebService is best configured by environment variables.
+
+|===
+|Variable |Default value
+
+|SERVER_PORT
+|8080
+
+|POSTCODE_SERVICE_HOST
+|localhost
+
+|POSTCODE_SERVICE_PORT
+|8081
+
+|PRAEMIEN_SERVICE_HOST
+|localhost
+
+|PRAEMIEN_SERVICE_PORT
+|8082
+
+|===
