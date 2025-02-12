@@ -4,7 +4,7 @@ The Prämien Application allowes users to send premium requests to a ficticious 
 
 ## Architecture
 
-The application consists of three HTTP services and a Web UI. The communication betweens services and the UI is handled in HTTP and JSON. Databse queries use SQL with JDBC and R2DBC drivers. 
+The application consists of three microservices and a web UI. The services and the UI use HTTP and JSON for communication. Data is persisted in a Postgres SQL database.
 
 ![architecture_praemien.png](architecture_praemien.drawio.png)
 
@@ -13,23 +13,27 @@ The application consists of three HTTP services and a Web UI. The communication 
 * serves locations for queried postcode
 
 ## Praemien Service
-The PraemienService handles PraemienAnfrage rquests
-* accepts requests
+* handles PraemienAnfrage requests
 * validates requests using PostCode Service
-* computes Praemie
+* computes premium
 * persists summary
-* serves summary
 
 ## Web UI
-* web form for convenient user input and summary page
+* web form for convenient user input
+* summary page
 
 ## Web Service + API Gateway
 * serves static Web UI distribution
 * routes API requests to encapsulated backend services
 
+### Possible Responsibilities
+* Authentication
+* Session management
+* Security issues
+
 ## Workflow
 * User enters Fahrzeugtyp, Kilometerleistung and Postleitzahl
-* UI requests locations for provided PLZ from PostCodeService
+* UI requests locations for provided Postleitzahl from PostCodeService
 * User selects location and clicks Anfrage-button
 * UI sends request to PraemienService
 * PraemienService requests locations from PostCodeService to validate user request
@@ -43,18 +47,18 @@ The PraemienService handles PraemienAnfrage rquests
 - **Spring WebFlux**, the reactive framework allowes an asynchroneous and resource efficient usage of service executor threads
 
 ### Persistence
-- Postgres
-- **Spring R2DBC**, reactive database queries
+- **Postgres**, open source, widely compatible, industry standard database
+- **Spring R2DBC**, reactive queries in accordance with WebFlux
 - **Liquibase**, standatd for database initialization
 
 ### Testing
-* **JUnit**, standard Java testing framework
-* **RestAssure** for web service tests
-* **TestContainers** provides postgres database with docker in tests
+* **JUnit** Java testing framework
+* **RestAssure** simplifies web service tests
+* **TestContainers** is used to provide a postgres database in a container for tests
 * **WireMock** to mock services the application depends on
 
 ### Documentation
-* AsciiDoc
+* **AsciiDoc** to generate service and API documentation
 * **Spring RestDocs** uses tests to generate API documentation and to ensure validity
 
 ### Deployment
@@ -62,21 +66,27 @@ The PraemienService handles PraemienAnfrage rquests
 * **Temurin & Alpine** slim base image
 
 ### Frontend
-* Angular/TypeScript
+* **Angular/TypeScript** web developement framework
 
 ## Quick Start
 
 ### Prequisites
-* Windows
-* JDK (v21 or higher) in `JAVA_HOME`
-* `docker` executable in `PATH`
-* `npm` executable in `PATH`
+* JDK distribution (21 or higher) in `JAVA_HOME` environment variable
+* `docker` executable in `PATH` environment variable (tested with v27.4.0)
+* `npm` executable in `PATH` environment variable (tested with v10.9.2, NodeJs v23.7.0) 
 
 ### Build and Run
-* run `build-all.bat` to build all components and create docker images for services
-* run `docker compose up -d` to start service stack. On initial startup the PostCodeService requires more time to initialize the database
-* open http://localhost in web browser
+* execute `build-all.bat` to build all components and create docker images for services
+* execute `docker compose up -d` to start service stack. On initial startup the PostCodeService requires more time to initialize the database
+* open http://localhost/ in web browser
 
 ### Test and Documentation
+* execute `test-docs-all.bat` to test the services and assemble documentation
+* if successful, the generated documentation can be found in the `docs` folder
 
 ## TODO
+* code formatting / lint
+* CI/CD
+* security (OWASP 10)
+* logging
+* UI tests
