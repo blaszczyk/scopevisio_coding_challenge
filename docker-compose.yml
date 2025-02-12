@@ -11,7 +11,7 @@ services:
         environment:
             - DATABASE_HOST=database
             - DATABASE_NAME=scopeviso
-            - DATABASE_USER=postgres
+            - DATABASE_USERNAME=postgres
             - DATABASE_PASSWORD=postgres
         depends_on:
             - database
@@ -21,7 +21,7 @@ services:
         environment:
             - DATABASE_HOST=database
             - DATABASE_NAME=scopeviso
-            - DATABASE_USER=postgres
+            - DATABASE_USERNAME=postgres
             - DATABASE_PASSWORD=postgres
             - POSTCODE_SERVICE_HOST=postcode-service
         ports:
