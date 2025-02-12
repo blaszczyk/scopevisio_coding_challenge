@@ -5,6 +5,7 @@ cd ../praemienservice
 call gradlew bootJar
 call docker build -t praemien-service .
 cd ../praemien-ui
+call npm run ci
 call npm run build
 cd ../webservice
 call gradlew bootJar
