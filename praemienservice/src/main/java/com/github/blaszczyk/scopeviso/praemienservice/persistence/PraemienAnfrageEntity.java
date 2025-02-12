@@ -6,7 +6,7 @@ import org.springframework.data.relational.core.mapping.Table;
 import java.util.Objects;
 import java.util.UUID;
 
-@Table(name = "praemien-anfrage")
+@Table(name = "PRAEMIEN_ANFRAGE")
 public class PraemienAnfrageEntity {
 
     private UUID praemienId;
