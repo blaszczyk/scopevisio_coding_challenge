@@ -56,7 +56,6 @@ class PostcodeServiceApplicationTests {
 	void contextLoads() {
 	}
 
-
 	private RequestSpecification spec;
 
 	@BeforeEach
@@ -70,7 +69,7 @@ class PostcodeServiceApplicationTests {
 	}
 
 	@Test
-	void get_location_returns_200_with_response_body() {
+	void get_location_returns_200_with_list_of_locations() {
 
 		final var documentation = document("get_location",
 				preprocessResponse(prettyPrint()),

@@ -6,9 +6,7 @@ import com.github.blaszczyk.scopeviso.praemienservice.domain.PraemienAnfrageRequ
 import com.github.blaszczyk.scopeviso.praemienservice.domain.PraemienAnfrageRequestValidator;
 import com.github.blaszczyk.scopeviso.praemienservice.domain.PraemienAnfrageResponse;
 import com.github.blaszczyk.scopeviso.praemienservice.domain.PraemienAnfrageSummary;
-import com.github.blaszczyk.scopeviso.praemienservice.exception.UnknownBundeslandException;
-import com.github.blaszczyk.scopeviso.praemienservice.exception.UnknownLocationException;
-import com.github.blaszczyk.scopeviso.praemienservice.persistence.PraemienAnfrage;
+import com.github.blaszczyk.scopeviso.praemienservice.persistence.PraemienAnfrageEntity;
 import com.github.blaszczyk.scopeviso.praemienservice.persistence.PraemienAnfrageRepository;
 import com.github.blaszczyk.scopeviso.praemienservice.persistence.PraemienAnfrageTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +48,7 @@ public class PraemienAnfrageServiceImpl implements PraemienAnfrageService {
 
     private Function<Integer, Mono<PraemienAnfrageResponse>> persist(PraemienAnfrageRequest request) {
         return praemie -> {
-            final PraemienAnfrage praemienAnfrage = PraemienAnfrageTransformer.transform(request, praemie);
+            final PraemienAnfrageEntity praemienAnfrage = PraemienAnfrageTransformer.transform(request, praemie);
             return praemienAnfrageRepository.save(praemienAnfrage)
                     .map(anfrage -> new PraemienAnfrageResponse(praemie, anfrage.getPraemienId()));
         };

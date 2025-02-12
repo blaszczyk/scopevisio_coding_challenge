@@ -1,7 +1,7 @@
 package com.github.blaszczyk.scopeviso.praemienservice;
 
 import com.github.blaszczyk.scopeviso.praemienservice.domain.*;
-import com.github.blaszczyk.scopeviso.praemienservice.persistence.PraemienAnfrage;
+import com.github.blaszczyk.scopeviso.praemienservice.persistence.PraemienAnfrageEntity;
 import com.github.blaszczyk.scopeviso.praemienservice.persistence.PraemienAnfrageRepository;
 import com.github.blaszczyk.scopeviso.praemienservice.util.DatabaseContainer;
 import com.github.blaszczyk.scopeviso.praemienservice.util.MockPostcodeService;
@@ -141,7 +141,7 @@ class PraemienserviceApplicationTests {
 
 		final UUID id = praemienAnfrageResponse.id();
 
-		final PraemienAnfrage persistedAnfrage = repository.findByPraemienId(id).block();
+		final PraemienAnfrageEntity persistedAnfrage = repository.findByPraemienId(id).block();
 
 		final var expectedAnfrage = createPraemienAnfrage(id, fahrzeugtyp, kilometerleistung, expectedPraemie, SWISTTAL);
 		assertEquals(expectedAnfrage, persistedAnfrage);
@@ -217,10 +217,10 @@ class PraemienserviceApplicationTests {
 			ANFRAGE_REQUEST_FIELDS.stream()
 	).toList();
 
-	private static PraemienAnfrage createPraemienAnfrage(final UUID id, final Fahrzeugtyp fahrzeugtyp,
-												  final int kilometerleistung, final int praemie,
-												  final Location location) {
-		final var result = new PraemienAnfrage();
+	private static PraemienAnfrageEntity createPraemienAnfrage(final UUID id, final Fahrzeugtyp fahrzeugtyp,
+															   final int kilometerleistung, final int praemie,
+															   final Location location) {
+		final var result = new PraemienAnfrageEntity();
 		result.setPraemienId(id);
 		result.setPraemie(praemie);
 		result.setKilometerleistung(kilometerleistung);

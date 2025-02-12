@@ -1,11 +1,13 @@
 package com.github.blaszczyk.scopeviso.postcodeservice.domain;
 
-import com.github.blaszczyk.scopeviso.postcodeservice.persistence.Postcodes;
+import com.github.blaszczyk.scopeviso.postcodeservice.persistence.PostcodeEntity;
 
-public class LocationTransformer {
+public final class LocationTransformer {
 
-    public static Location transform(final Postcodes entity) {
+    public static Location transform(final PostcodeEntity entity) {
         return new Location(entity.getRegion1(), entity.getRegion3(),
                 entity.getOrt(), entity.getPostleitzahl(), entity.getArea1());
     }
+
+    private LocationTransformer() {}
 }

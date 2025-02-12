@@ -2,7 +2,7 @@ package com.github.blaszczyk.scopeviso.praemienservice.bi;
 
 import com.github.blaszczyk.scopeviso.praemienservice.domain.Fahrzeugtyp;
 
-public class FahrzeugtypFaktorCalculator {
+public final class FahrzeugtypFaktorCalculator {
     public static float calculate(final Fahrzeugtyp fahrzeugtyp) {
         return switch (fahrzeugtyp) {
             case LKW -> 1000.f;
@@ -10,4 +10,6 @@ public class FahrzeugtypFaktorCalculator {
             case ZWEIRAD -> 300.f;
         };
     }
+
+    private FahrzeugtypFaktorCalculator() {}
 }

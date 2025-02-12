@@ -3,7 +3,8 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
-    <changeSet id="load_postcodes" author="michael">
+    <!-- loads a smaller set of postcodeEntity for faster test execution -->
+    <changeSet id="load_postcodes_test" author="michael">
         <loadData tableName="POSTCODES" file="db/postcodes_test.csv" schemaName="postcode_service" quotchar="&quot;"
                   separator=",">
             <column name="iso_3166_1_alpha_2" header="ISO_3166_1_ALPHA_2" type="text" />

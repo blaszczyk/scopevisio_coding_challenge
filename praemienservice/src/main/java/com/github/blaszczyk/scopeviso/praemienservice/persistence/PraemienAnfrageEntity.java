@@ -1,12 +1,13 @@
 package com.github.blaszczyk.scopeviso.praemienservice.persistence;
 
 import com.github.blaszczyk.scopeviso.praemienservice.domain.Fahrzeugtyp;
-import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Table;
 
 import java.util.Objects;
 import java.util.UUID;
 
-public class PraemienAnfrage {
+@Table(name = "praemien-anfrage")
+public class PraemienAnfrageEntity {
 
     private UUID praemienId;
 
@@ -102,12 +103,27 @@ public class PraemienAnfrage {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PraemienAnfrage that = (PraemienAnfrage) o;
+        PraemienAnfrageEntity that = (PraemienAnfrageEntity) o;
         return kilometerleistung == that.kilometerleistung && praemie == that.praemie && Objects.equals(praemienId, that.praemienId) && fahrzeugtyp == that.fahrzeugtyp && Objects.equals(bundesland, that.bundesland) && Objects.equals(kreis, that.kreis) && Objects.equals(stadt, that.stadt) && Objects.equals(postleitzahl, that.postleitzahl) && Objects.equals(bezirk, that.bezirk);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(praemienId, kilometerleistung, fahrzeugtyp, bundesland, kreis, stadt, postleitzahl, bezirk, praemie);
+    }
+
+    @Override
+    public String toString() {
+        return "PraemienAnfrage{" +
+                "praemienId=" + praemienId +
+                ", kilometerleistung=" + kilometerleistung +
+                ", fahrzeugtyp=" + fahrzeugtyp +
+                ", bundesland='" + bundesland + '\'' +
+                ", kreis='" + kreis + '\'' +
+                ", stadt='" + stadt + '\'' +
+                ", postleitzahl='" + postleitzahl + '\'' +
+                ", bezirk='" + bezirk + '\'' +
+                ", praemie=" + praemie +
+                '}';
     }
 }

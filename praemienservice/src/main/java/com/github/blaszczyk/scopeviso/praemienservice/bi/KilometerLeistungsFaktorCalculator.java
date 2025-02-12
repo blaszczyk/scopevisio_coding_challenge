@@ -12,4 +12,6 @@ public final class KilometerLeistungsFaktorCalculator {
             return 2f;
         }
     }
+
+    private KilometerLeistungsFaktorCalculator() {}
 }

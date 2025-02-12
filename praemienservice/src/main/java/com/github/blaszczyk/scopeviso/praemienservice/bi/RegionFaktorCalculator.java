@@ -26,4 +26,6 @@ public final class RegionFaktorCalculator {
             default -> throw new UnknownBundeslandException(bundesland);
         };
     }
+
+    private RegionFaktorCalculator() {}
 }

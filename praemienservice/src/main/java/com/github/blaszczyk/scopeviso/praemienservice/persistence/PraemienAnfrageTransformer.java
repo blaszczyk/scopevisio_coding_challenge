@@ -5,9 +5,9 @@ import com.github.blaszczyk.scopeviso.praemienservice.domain.PraemienAnfrageSumm
 
 import java.util.UUID;
 
-public class PraemienAnfrageTransformer {
-    public static PraemienAnfrage transform(final PraemienAnfrageRequest request, final int praemie) {
-        final var result = new PraemienAnfrage();
+public final class PraemienAnfrageTransformer {
+    public static PraemienAnfrageEntity transform(final PraemienAnfrageRequest request, final int praemie) {
+        final var result = new PraemienAnfrageEntity();
         result.setPraemienId(UUID.randomUUID());
         result.setBundesland(request.bundesland());
         result.setKreis(request.kreis());
@@ -20,9 +20,11 @@ public class PraemienAnfrageTransformer {
         return result;
     }
 
-    public static PraemienAnfrageSummary transformToSummary(final PraemienAnfrage anfrage) {
+    public static PraemienAnfrageSummary transformToSummary(final PraemienAnfrageEntity anfrage) {
         return new PraemienAnfrageSummary(anfrage.getPraemienId(), anfrage.getPraemie(), anfrage.getKilometerleistung(),
                 anfrage.getFahrzeugtyp(), anfrage.getBundesland(), anfrage.getKreis(), anfrage.getStadt(),
                 anfrage.getPostleitzahl(), anfrage.getBezirk());
     }
+
+    private PraemienAnfrageTransformer() {}
 }

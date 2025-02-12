@@ -11,7 +11,7 @@ import reactor.core.publisher.Mono;
 import java.util.List;
 
 @Component
-public class PostcodeClient {
+public final class PostcodeClient {
 
     @Value("${postcode-service.url}")
     private String postcodeServiceUrl;
