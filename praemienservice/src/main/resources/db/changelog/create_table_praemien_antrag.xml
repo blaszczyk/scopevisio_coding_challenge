@@ -4,10 +4,10 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
     <property name="uuid_type" value="uuid" dbms="postgresql"/>
 
-    <changeSet id="create_table_praemien_anfrage" author="michael">
-        <createTable tableName="PRAEMIEN_ANFRAGE" schemaName="praemien_service">
+    <changeSet id="create_table_praemien_antrag" author="michael">
+        <createTable tableName="PRAEMIEN_ANTRAG" schemaName="praemien_service">
             <column name="praemien_id" type="${uuid_type}">
-                <constraints primaryKey="true" nullable="false" primaryKeyName="PRAEMIEN_ANFRAGE_PK"/>
+                <constraints primaryKey="true" nullable="false" primaryKeyName="PRAEMIEN_ANTRAG_PK"/>
             </column>
             <column name="kilometerleistung" type="int">
                 <constraints nullable="false"/>

@@ -1,7 +1,7 @@
 package com.github.blaszczyk.scopeviso.praemienservice.bi;
 
 import com.github.blaszczyk.scopeviso.praemienservice.domain.Fahrzeugtyp;
-import com.github.blaszczyk.scopeviso.praemienservice.domain.PraemienAnfrageRequest;
+import com.github.blaszczyk.scopeviso.praemienservice.domain.PraemienAntragRequest;
 import com.github.blaszczyk.scopeviso.praemienservice.exception.UnknownBundeslandException;
 import org.junit.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -20,7 +20,7 @@ public class PraemienCalculatorTest {
     // * each bundesland
     // * each combination of km-factor and fahrzeugtyp-factor
     // * boundaries of the km-factors
-    private static Stream<Arguments> praemienAnfrageTestCases() {
+    private static Stream<Arguments> praemienAntragTestCases() {
         return Stream.of(
                 Arguments.of(1555, LKW, "Baden-Württemberg", 900),
                 Arguments.of(1555, PKW, "Bayern", 500),
@@ -42,10 +42,10 @@ public class PraemienCalculatorTest {
     }
 
     @ParameterizedTest
-    @MethodSource("praemienAnfrageTestCases")
+    @MethodSource("praemienAntragTestCases")
     public void computes_premiums(final int kilometerleistung, final Fahrzeugtyp fahrzeugtyp,
                        final String bundesland, final int expectedPraemie) {
-        final PraemienAnfrageRequest request = new PraemienAnfrageRequest(kilometerleistung, fahrzeugtyp, bundesland,
+        final PraemienAntragRequest request = new PraemienAntragRequest(kilometerleistung, fahrzeugtyp, bundesland,
                 null, null, null, null );
         final int actualPraemie = PraemienCalculator.calculate(request);
         assertEquals(expectedPraemie, actualPraemie);
@@ -54,7 +54,7 @@ public class PraemienCalculatorTest {
     @Test
     public void throws_on_unknown_bundesland() {
         assertThrows(UnknownBundeslandException.class, () -> {
-            final PraemienAnfrageRequest request = new PraemienAnfrageRequest(1, LKW,
+            final PraemienAntragRequest request = new PraemienAntragRequest(1, LKW,
                     "Gibt es nicht", null, null, null, null );
             PraemienCalculator.calculate(request);
         });

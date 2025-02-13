@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PraemienAnfrageComponent } from './praemien-anfrage/praemien-anfrage.component';
+import { PraemienAntragComponent } from './praemien-antrag/praemien-antrag.component';
 @NgModule({
-  declarations: [PraemienAnfrageComponent],
+  declarations: [PraemienAntragComponent],
   imports: [
     CommonModule
   ],
-  exports: [PraemienAnfrageComponent],
+  exports: [PraemienAntragComponent],
 })
 export class PraemienModuleModule { }

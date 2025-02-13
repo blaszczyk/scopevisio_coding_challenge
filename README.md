@@ -25,7 +25,7 @@ The responsibilities of the components are the following:
 * serves locations for queried Postleitzahl
 
 ### PraemienService
-* handles PraemienAnfrage requests
+* handles PraemienAntrag requests
 * validates requests using PostCodeService
 * computes Praemie
 * persists summary
@@ -47,7 +47,7 @@ The responsibilities of the components are the following:
 The workflow for a successful user request consists of the following steps:
 * User enters Fahrzeugtyp, Kilometerleistung and Postleitzahl
 * UI requests locations for provided Postleitzahl from PostCodeService
-* User selects location and clicks Anfrage-button
+* User selects location and clicks send-button
 * UI sends request to PraemienService
 * PraemienService requests locations from PostCodeService to validate user request
 * PraemienService calculates Praemie, persists summary and responds

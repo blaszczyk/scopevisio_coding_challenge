@@ -2,7 +2,7 @@
 :toc: left
 :toclevels: 2
 
-= PraemienAnfrageService Documentation
+= PraemienService Documentation
 
 include::overview.adoc[leveloffset=+1]
 

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PraemienAnfrageComponent } from './praemien-anfrage.component';
+import { PraemienAntragComponent } from './praemien-antrag.component';
 
-describe('PraemienAnfrageComponent', () => {
-  let component: PraemienAnfrageComponent;
-  let fixture: ComponentFixture<PraemienAnfrageComponent>;
+describe('PraemienAntragComponent', () => {
+  let component: PraemienAntragComponent;
+  let fixture: ComponentFixture<PraemienAntragComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PraemienAnfrageComponent]
+      imports: [PraemienAntragComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(PraemienAnfrageComponent);
+    fixture = TestBed.createComponent(PraemienAntragComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

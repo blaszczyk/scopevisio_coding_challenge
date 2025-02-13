@@ -5,6 +5,6 @@ import reactor.core.publisher.Mono;
 
 import java.util.UUID;
 
-public interface PraemienAnfrageRepository extends ReactiveCrudRepository<PraemienAnfrageEntity, UUID> {
-    Mono<PraemienAnfrageEntity> findByPraemienId(UUID praemienId);
+public interface PraemienAntragRepository extends ReactiveCrudRepository<PraemienAntragEntity, UUID> {
+    Mono<PraemienAntragEntity> findByPraemienId(UUID praemienId);
 }

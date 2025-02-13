@@ -3,9 +3,9 @@ import json
 
 host = 'localhost:8082'
 
-path = '/praemien/api/anfrage'
+path = '/praemien/api/antrag'
 
-anfrage = {
+antrag = {
 	'kilometerleistung': 30000,
 	'fahrzeugtyp': 'LKW',
 	'bundesland': 'Nordrhein-Westfalen',
@@ -14,9 +14,9 @@ anfrage = {
 	'postleitzahl': '53844',
 	'bezirk': 'Kriegsdorf'
 }
-request_body = json.dumps(anfrage)
+request_body = json.dumps(antrag)
 print('request: POST@http://' + host + path)
-print('body', anfrage)
+print('body', antrag)
 
 
 headers = {'Content-type': 'application/json'}

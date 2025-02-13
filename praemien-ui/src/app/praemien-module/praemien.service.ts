@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IPraemienAnfrageRequest, IPraemienAnfrageResponse, IPraemienAnfrageSummary } from './domain';
+import { IPraemienAntragRequest, IPraemienAntragResponse, IPraemienAntragSummary } from './domain';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -10,11 +10,11 @@ export class PraemienService {
 
   constructor(private readonly http: HttpClient) { }
 
-  postAnfrage(request: IPraemienAnfrageRequest): Observable<IPraemienAnfrageResponse> {
-    return this.http.post<IPraemienAnfrageResponse>('/praemien/api/anfrage', request);
+  postAntrag(request: IPraemienAntragRequest): Observable<IPraemienAntragResponse> {
+    return this.http.post<IPraemienAntragResponse>('/praemien/api/antrag', request);
   }
 
-  getSummary(id: string): Observable<IPraemienAnfrageSummary> {
-    return this.http.get<IPraemienAnfrageSummary>('/praemien/api/summary/' + id);
+  getSummary(id: string): Observable<IPraemienAntragSummary> {
+    return this.http.get<IPraemienAntragSummary>('/praemien/api/summary/' + id);
   }
 }

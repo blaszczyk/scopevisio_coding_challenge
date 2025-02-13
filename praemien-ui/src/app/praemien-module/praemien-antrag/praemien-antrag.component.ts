@@ -5,18 +5,18 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { FormsModule } from '@angular/forms';
-import { Fahrzeugtyp, ILocation, IPraemienAnfrageRequest } from '../domain';
+import { Fahrzeugtyp, ILocation, IPraemienAntragRequest } from '../domain';
 import { LocationService } from '../location.service';
 import { PraemienService } from '../praemien.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-praemien-anfrage',
+  selector: 'app-praemien-antrag',
   imports: [MatInputModule, MatFormFieldModule, MatSelectModule, MatButtonModule, MatGridListModule, FormsModule],
-  templateUrl: './praemien-anfrage.component.html',
-  styleUrl: './praemien-anfrage.component.css'
+  templateUrl: './praemien-antrag.component.html',
+  styleUrl: './praemien-antrag.component.css'
 })
-export class PraemienAnfrageComponent {
+export class PraemienAntragComponent {
 
   postleitzahl: string = '';
 
@@ -59,9 +59,9 @@ export class PraemienAnfrageComponent {
     return !!(this.selectedLocation && this.selectedFahrzeugtyp && this.kilometerleistung && this.kilometerleistung > 0);
   }
 
-  requestPraemienAnfrage() {
+  requestPraemienAntrag() {
     const selectedLocation = this.selectedLocation!;
-    const request: IPraemienAnfrageRequest = {
+    const request: IPraemienAntragRequest = {
         bundesland: selectedLocation.bundesland,
         kreis: selectedLocation.kreis,
         stadt: selectedLocation.stadt,
@@ -70,7 +70,7 @@ export class PraemienAnfrageComponent {
         kilometerleistung: this.kilometerleistung!,
         fahrzeugtyp: this.selectedFahrzeugtyp!
     };
-    this.praemienService.postAnfrage(request)
+    this.praemienService.postAntrag(request)
       .subscribe(response => this.router.navigateByUrl('summary/' + response.id));
   }
 }

@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
-import { PraemienAnfrageComponent } from './praemien-module/praemien-anfrage/praemien-anfrage.component';
-import { PraemienAnfrageSummaryComponent } from './praemien-module/praemien-anfrage-summary/praemien-anfrage-summary.component';
+import { PraemienAntragComponent } from './praemien-module/praemien-antrag/praemien-antrag.component';
+import { PraemienAntragSummaryComponent } from './praemien-module/praemien-antrag-summary/praemien-antrag-summary.component';
 
 export const routes: Routes = [
-    { path: "", component: PraemienAnfrageComponent },
-    { path: "summary/:id", component: PraemienAnfrageSummaryComponent }
+    { path: "", component: PraemienAntragComponent },
+    { path: "summary/:id", component: PraemienAntragSummaryComponent }
 ];

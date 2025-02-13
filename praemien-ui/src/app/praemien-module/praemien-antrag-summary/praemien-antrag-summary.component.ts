@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PraemienService } from '../praemien.service';
-import { IPraemienAnfrageSummary } from '../domain';
+import { IPraemienAntragSummary } from '../domain';
 import { NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-praemien-anfrage-summary',
+  selector: 'app-praemien-antrag-summary',
   imports: [NgIf],
-  templateUrl: './praemien-anfrage-summary.component.html',
-  styleUrl: './praemien-anfrage-summary.component.css'
+  templateUrl: './praemien-antrag-summary.component.html',
+  styleUrl: './praemien-antrag-summary.component.css'
 })
-export class PraemienAnfrageSummaryComponent implements OnInit {
+export class PraemienAntragSummaryComponent implements OnInit {
 
-  summary: IPraemienAnfrageSummary | null = null;
+  summary: IPraemienAntragSummary | null = null;
 
   constructor(private readonly route: ActivatedRoute,
       private readonly praemienService: PraemienService

@@ -3,10 +3,10 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
-    <changeSet id="create_schema_praemienanfragen_service" author="michael">
+    <changeSet id="create_schema_praemien_service" author="michael">
         <sql>CREATE SCHEMA praemien_service</sql>
     </changeSet>
 
-    <include file="db/changelog/create_table_praemien_anfrage.xml" />
+    <include file="db/changelog/create_table_praemien_antrag.xml" />
 
 </databaseChangeLog>

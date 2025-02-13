@@ -6,8 +6,8 @@ import org.springframework.data.relational.core.mapping.Table;
 import java.util.Objects;
 import java.util.UUID;
 
-@Table(name = "PRAEMIEN_ANFRAGE")
-public class PraemienAnfrageEntity {
+@Table(name = "PRAEMIEN_ANTRAG")
+public class PraemienAntragEntity {
 
     private UUID praemienId;
 
@@ -103,7 +103,7 @@ public class PraemienAnfrageEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PraemienAnfrageEntity that = (PraemienAnfrageEntity) o;
+        PraemienAntragEntity that = (PraemienAntragEntity) o;
         return kilometerleistung == that.kilometerleistung && praemie == that.praemie && Objects.equals(praemienId, that.praemienId) && fahrzeugtyp == that.fahrzeugtyp && Objects.equals(bundesland, that.bundesland) && Objects.equals(kreis, that.kreis) && Objects.equals(stadt, that.stadt) && Objects.equals(postleitzahl, that.postleitzahl) && Objects.equals(bezirk, that.bezirk);
     }
 
@@ -114,7 +114,7 @@ public class PraemienAnfrageEntity {
 
     @Override
     public String toString() {
-        return "PraemienAnfrage{" +
+        return "PraemienAntrag{" +
                 "praemienId=" + praemienId +
                 ", kilometerleistung=" + kilometerleistung +
                 ", fahrzeugtyp=" + fahrzeugtyp +

@@ -1,8 +1,8 @@
 package com.github.blaszczyk.scopeviso.praemienservice;
 
 import com.github.blaszczyk.scopeviso.praemienservice.domain.*;
-import com.github.blaszczyk.scopeviso.praemienservice.persistence.PraemienAnfrageEntity;
-import com.github.blaszczyk.scopeviso.praemienservice.persistence.PraemienAnfrageRepository;
+import com.github.blaszczyk.scopeviso.praemienservice.persistence.PraemienAntragEntity;
+import com.github.blaszczyk.scopeviso.praemienservice.persistence.PraemienAntragRepository;
 import com.github.blaszczyk.scopeviso.praemienservice.util.DatabaseContainer;
 import com.github.blaszczyk.scopeviso.praemienservice.util.MockPostcodeService;
 import io.restassured.builder.RequestSpecBuilder;
@@ -103,12 +103,12 @@ class PraemienserviceApplicationTests {
 	}
 
 	@Autowired
-	private PraemienAnfrageRepository repository;
+	private PraemienAntragRepository repository;
 
 	private static final Location SWISTTAL = new Location("Nordrhein-Westfalen", "Rhein-Sieg-Kreis", "Swisttal", "53913", "Müttinghoven");
 
 	@Test
-	void post_anfrage_requests_returns_200_with_response() {
+	void post_antrag_requests_returns_200_with_response() {
 
 		final int kilometerleistung = 14000;
 		final Fahrzeugtyp fahrzeugtyp = Fahrzeugtyp.PKW;
@@ -116,38 +116,38 @@ class PraemienserviceApplicationTests {
 
 		mockPostcodeService.createGetLocationsExpectation("53913", 200, List.of(SWISTTAL));
 
-		final var request = new PraemienAnfrageRequest(kilometerleistung, fahrzeugtyp, SWISTTAL.bundesland(),
+		final var request = new PraemienAntragRequest(kilometerleistung, fahrzeugtyp, SWISTTAL.bundesland(),
 				SWISTTAL.kreis(), SWISTTAL.stadt(), SWISTTAL.postleitzahl(), SWISTTAL.bezirk());
 
-		final var documentation = document("post_anfrage",
+		final var documentation = document("post_antrag",
 				preprocessRequest(prettyPrint()),
 				preprocessResponse(prettyPrint()),
 				new RequestBodySnippet(),
 				new ResponseBodySnippet(),
-				requestFields(ANFRAGE_REQUEST_FIELDS),
-				responseFields(ANFRAGE_RESPONSE_FIELDS));
+				requestFields(ANTRAG_REQUEST_FIELDS),
+				responseFields(ANTRAG_RESPONSE_FIELDS));
 
-		final PraemienAnfrageResponse praemienAnfrageResponse =
+		final PraemienAntragResponse praemienAntragResponse =
 				given(this.spec)
 					.body(request)
 					.header("content-type", ContentType.JSON)
 					.filter(documentation)
 				.when()
-					.post("/anfrage")
+					.post("/antrag")
 				.then()
 					.statusCode(200)
 					.extract()
 					.jsonPath()
-					.getObject(".", PraemienAnfrageResponse.class);
+					.getObject(".", PraemienAntragResponse.class);
 
-		assertEquals(expectedPraemie, praemienAnfrageResponse.praemie());
+		assertEquals(expectedPraemie, praemienAntragResponse.praemie());
 
-		final UUID id = praemienAnfrageResponse.id();
+		final UUID id = praemienAntragResponse.id();
 
-		final PraemienAnfrageEntity persistedAnfrage = repository.findByPraemienId(id).block();
+		final PraemienAntragEntity persistedAntrag = repository.findByPraemienId(id).block();
 
-		final var expectedAnfrage = createPraemienAnfrage(id, fahrzeugtyp, kilometerleistung, expectedPraemie, SWISTTAL);
-		assertEquals(expectedAnfrage, persistedAnfrage);
+		final var expectedAntrag = createPraemienAntrag(id, fahrzeugtyp, kilometerleistung, expectedPraemie, SWISTTAL);
+		assertEquals(expectedAntrag, persistedAntrag);
 	}
 
 	private static Stream<Arguments> invalidRequests() {
@@ -162,56 +162,56 @@ class PraemienserviceApplicationTests {
 
 	@ParameterizedTest
 	@MethodSource("invalidRequests")
-	void post_anfrage_requests_returns_400_for_invalid_request(final int kilometerleistung, final Fahrzeugtyp fahrzeugtyp, final String postleitzahl) {
+	void post_antrag_requests_returns_400_for_invalid_request(final int kilometerleistung, final Fahrzeugtyp fahrzeugtyp, final String postleitzahl) {
 
-		final var request = new PraemienAnfrageRequest(kilometerleistung, fahrzeugtyp,
+		final var request = new PraemienAntragRequest(kilometerleistung, fahrzeugtyp,
 				"Nordrhein-Westfalen", "Bonn", "Bonn", postleitzahl, "Endenich");
 
 		given(this.spec)
 			.body(request)
 			.header("content-type", ContentType.JSON)
 		.when()
-			.post("/anfrage")
+			.post("/antrag")
 		.then()
 			.statusCode(400);
 	}
 
 	@Test
-	void post_anfrage_requests_returns_400_for_unknown_location() {
+	void post_antrag_requests_returns_400_for_unknown_location() {
 
 		mockPostcodeService.createGetLocationsExpectation("53913", 200, List.of(SWISTTAL));
 
-		final var request = new PraemienAnfrageRequest(14000, Fahrzeugtyp.PKW, SWISTTAL.bundesland(),
+		final var request = new PraemienAntragRequest(14000, Fahrzeugtyp.PKW, SWISTTAL.bundesland(),
 				SWISTTAL.kreis(), "Nicht Swisttal", SWISTTAL.postleitzahl(), SWISTTAL.bezirk());
 
 		given(this.spec)
 			.body(request)
 			.header("content-type", ContentType.JSON)
 		.when()
-			.post("/anfrage")
+			.post("/antrag")
 		.then()
 			.statusCode(400);
 	}
 
 	@Test
-	void get_anfrage_summary_returns_200_with_response() {
+	void get_antrag_summary_returns_200_with_response() {
 		final int kilometerleistung = 9000;
 		final Fahrzeugtyp fahrzeugtyp = Fahrzeugtyp.ZWEIRAD;
 		final int expectedPraemie = 1000;
 
 		final var documentation = document("get_summary",
 				preprocessResponse(prettyPrint()),
-				pathParameters(parameterWithName("id").description("Id der Prämienanfrage")),
+				pathParameters(parameterWithName("id").description("Id der Prämienantrag")),
 				new ResponseBodySnippet(),
-				responseFields(ANFRAGE_SUMMARY_FIELDS)
+				responseFields(ANTRAG_SUMMARY_FIELDS)
 		);
 
 		final UUID id = UUID.randomUUID();
 
-		final var persistedAnfrage = createPraemienAnfrage(id, fahrzeugtyp, kilometerleistung, expectedPraemie, SWISTTAL);
-		repository.save(persistedAnfrage).block();
+		final var persistedAntrag = createPraemienAntrag(id, fahrzeugtyp, kilometerleistung, expectedPraemie, SWISTTAL);
+		repository.save(persistedAntrag).block();
 
-		final PraemienAnfrageSummary praemienAnfrageSummary =
+		final PraemienAntragSummary praemienAntragSummary =
 				given(this.spec)
 						.filter(documentation)
 				.when()
@@ -220,13 +220,13 @@ class PraemienserviceApplicationTests {
 						.statusCode(200)
 						.extract()
 						.jsonPath()
-						.getObject(".", PraemienAnfrageSummary.class);
-		final var expectedSummary = new PraemienAnfrageSummary(id, expectedPraemie, kilometerleistung, fahrzeugtyp,
+						.getObject(".", PraemienAntragSummary.class);
+		final var expectedSummary = new PraemienAntragSummary(id, expectedPraemie, kilometerleistung, fahrzeugtyp,
 				SWISTTAL.bundesland(), SWISTTAL.kreis(), SWISTTAL.stadt(), SWISTTAL.postleitzahl(), SWISTTAL.bezirk());
-		assertEquals(expectedSummary, praemienAnfrageSummary);
+		assertEquals(expectedSummary, praemienAntragSummary);
 	}
 
-	private static final List<FieldDescriptor> ANFRAGE_REQUEST_FIELDS = List.of(
+	private static final List<FieldDescriptor> ANTRAG_REQUEST_FIELDS = List.of(
 			fieldWithPath("kilometerleistung").description("Milage, must be positive"),
 			fieldWithPath("fahrzeugtyp").description("Type of Vehicle, values are " + Arrays.toString(Fahrzeugtyp.values())),
 			fieldWithPath("bundesland").description("Federal State"),
@@ -236,20 +236,20 @@ class PraemienserviceApplicationTests {
 			fieldWithPath("bezirk").optional().description("District, optional")
 	);
 
-	private static final List<FieldDescriptor> ANFRAGE_RESPONSE_FIELDS = List.of(
+	private static final List<FieldDescriptor> ANTRAG_RESPONSE_FIELDS = List.of(
 			fieldWithPath("id").description("Generated Id"),
 			fieldWithPath("praemie").description("Calculated premium in Euro")
 	);
 
-	private static final List<FieldDescriptor> ANFRAGE_SUMMARY_FIELDS = Stream.concat(
-			ANFRAGE_RESPONSE_FIELDS.stream(),
-			ANFRAGE_REQUEST_FIELDS.stream()
+	private static final List<FieldDescriptor> ANTRAG_SUMMARY_FIELDS = Stream.concat(
+			ANTRAG_RESPONSE_FIELDS.stream(),
+			ANTRAG_REQUEST_FIELDS.stream()
 	).toList();
 
-	private static PraemienAnfrageEntity createPraemienAnfrage(final UUID id, final Fahrzeugtyp fahrzeugtyp,
-															   final int kilometerleistung, final int praemie,
-															   final Location location) {
-		final var result = new PraemienAnfrageEntity();
+	private static PraemienAntragEntity createPraemienAntrag(final UUID id, final Fahrzeugtyp fahrzeugtyp,
+															  final int kilometerleistung, final int praemie,
+															  final Location location) {
+		final var result = new PraemienAntragEntity();
 		result.setPraemienId(id);
 		result.setPraemie(praemie);
 		result.setKilometerleistung(kilometerleistung);

@@ -1,3 +1,3 @@
 = Overview
 
-The PraemienWebService serves static resources containing the Praemien Web User Interface. Additionaly it is an API Gateway and routes REST requests to the PostCodeService and PraemienAnfrageService.
+The PraemienWebService serves static resources containing the Praemien Web User Interface. Additionaly it is an API Gateway and routes REST requests to the PostCodeService and PraemienService.

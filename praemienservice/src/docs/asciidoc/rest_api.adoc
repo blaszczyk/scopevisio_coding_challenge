@@ -1,4 +1,4 @@
 = REST API
 
-include::rest_api/post_anfrage.adoc[leveloffset=+1]
+include::rest_api/post_antrag.adoc[leveloffset=+1]
 include::rest_api/get_summary.adoc[leveloffset=+1]
