@@ -111,10 +111,10 @@ class PostcodeServiceApplicationTests {
 	}
 
 	private static final List<FieldDescriptor> LOCATION_FIELDS = List.of(
-			fieldWithPath("[].bundesland").description("Bundesland"),
-			fieldWithPath("[].kreis").description("Kreis"),
-			fieldWithPath("[].stadt").description("Stadt/Gemeinde"),
-			fieldWithPath("[].postleitzahl").description("Postleitzahl"),
-			fieldWithPath("[].bezirk").optional().description("Bezirk, optional")
+			fieldWithPath("[].bundesland").description("Federal State"),
+			fieldWithPath("[].kreis").description("Municipality"),
+			fieldWithPath("[].stadt").description("City"),
+			fieldWithPath("[].postleitzahl").description("Postcode"),
+			fieldWithPath("[].bezirk").optional().description("District, optional")
 	);
 }

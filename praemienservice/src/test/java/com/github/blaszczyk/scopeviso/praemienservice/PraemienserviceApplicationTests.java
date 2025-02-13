@@ -227,18 +227,18 @@ class PraemienserviceApplicationTests {
 	}
 
 	private static final List<FieldDescriptor> ANFRAGE_REQUEST_FIELDS = List.of(
-			fieldWithPath("kilometerleistung").description("Geschätzte Kilometerleistung"),
-			fieldWithPath("fahrzeugtyp").description("Gewählter Fahrzeugtyp, gülttige Werte: " + Arrays.toString(Fahrzeugtyp.values())),
-			fieldWithPath("bundesland").description("Bundesland des Antragstellers"),
-			fieldWithPath("kreis").description("Kreis des Antragstellers"),
-			fieldWithPath("stadt").description("Stadt/Gemeinde des Antragstellers"),
-			fieldWithPath("postleitzahl").description("Postleitzahl des Antragstellers"),
-			fieldWithPath("bezirk").optional().description("Bezirk des Antragstellers, optional")
+			fieldWithPath("kilometerleistung").description("Milage, must be positive"),
+			fieldWithPath("fahrzeugtyp").description("Type of Vehicle, values are " + Arrays.toString(Fahrzeugtyp.values())),
+			fieldWithPath("bundesland").description("Federal State"),
+			fieldWithPath("kreis").description("Municipality"),
+			fieldWithPath("stadt").description("City"),
+			fieldWithPath("postleitzahl").description("Postcode"),
+			fieldWithPath("bezirk").optional().description("District, optional")
 	);
 
 	private static final List<FieldDescriptor> ANFRAGE_RESPONSE_FIELDS = List.of(
-			fieldWithPath("id").description("Generierte Id"),
-			fieldWithPath("praemie").description("Berechnete Prämie in Euro")
+			fieldWithPath("id").description("Generated Id"),
+			fieldWithPath("praemie").description("Calculated premium in Euro")
 	);
 
 	private static final List<FieldDescriptor> ANFRAGE_SUMMARY_FIELDS = Stream.concat(
