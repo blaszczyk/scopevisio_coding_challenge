@@ -20,8 +20,7 @@ Die VersicherungsPrämien Anwendung erlaubt es Kunden Prämienanträge zu stelle
 
 ## Architecture
 
-The application consists of three microservices and a web UI. The services and the UI use HTTP and JSON for communication. Data is persisted in a Postgres SQL database.
-
+The application consists of three microservices and a web UI. The services and the UI use HTTP and JSON for communication. Data is persisted in a Postgres SQL database. The services are deployed as docker images.
 ![architecture_praemien.drawio.png](architecture_praemien.drawio.png)
 
 The responsibilities of the components are the following:
@@ -69,7 +68,7 @@ The workflow for a successful user request consists of the following steps:
 ### Persistence
 - **Postgres**, industry standard database
 - **Spring R2DBC**, reactive database queries in accordance with WebFlux
-- **Liquibase**, standatd for database initialization
+- **Liquibase** for database initialization
 
 ### Testing
 * **JUnit**, standard Java testing framework
@@ -98,14 +97,14 @@ The workflow for a successful user request consists of the following steps:
 ### Build and Run
 * execute `build-all.bat` to build all components and create docker images for services
 * execute `docker compose up -d` to start service stack. On initial startup the PostCodeService requires more time to initialize the database.
-* open http://localhost/ in web browser
+* visit http://localhost/
 
 ### Test and Documentation
 * execute `test-docs-all.bat` to test the services and assemble documentation
 * if successful, the generated documentation can be found in the `docs` folder
 
 ## TODO
-An incomplete list of improvements to make the application product-ready
+An incomplete list of improvements to make the application production-ready
 * versioning
 * CI/CD
 * security (OWASP 10)
