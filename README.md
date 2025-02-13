@@ -4,19 +4,19 @@ Die VersicherungsPrämien Anwendung erlaubt es Kunden Prämienanträge zu stelle
 
 ## Kommentare zur Challenge
 
+* Architektonisch habe ich mich für drei Microservices entschieden. Anhand der fachlichen Domäne getrennt gibt es einen Service für die Ortsdaten und einen für die Prämien. Zusätzlich gibt es einen Webservice der das UI serviert und API Anfragen an die anderen Services deligiert. Die Services kommunizieren untereinander und mit dem Frontend über HTTP/JSON APIs. Mehr dazu unter [Architektur](#architecture)
+
+* Als Datenbank habe ich Postgres gewählt. Als opensource Projekt ist sie bewährter Industriestandard und ist mit vielen Systemen kompatibel. Ebenso ist PgAdmin ist ein praktisckes Tool zur Verwaltung mit dem ich sehr gute Erfahrung habe.
+
+* Für die Tests benutze ich JUnit, als bewährten Java Testing Standard. Für die Tests der Services kommt RestAssure hinzu. Die Testcases umfassen sowohl happy- als auch verschiedenste sad-cases um eine möglichst hohe Code-Coverage zu erreichen. Mithilfe von SpringRestDocs werden während der Tests Snippets für die Dokumentation generiert, was die Korrektheit der Dokumentation garantiert.
+
 * Laut der Aufgabe soll der Kunde eine Postleitzahl eingeben, welche auf ein Bundesland abgebildet wird um den Region-Faktor zu ermitteln. Diese Abbildung ist jedoch nicht eindeutig, also es gibt Orte mit gleicher Postleitzahl in unterschiedlichen Bundesländern. Die implementierte Lösung ist, dass der Kunde, nachdem er die Postleitzahl eingegeben hat, noch einen entsprechenden Ort auswählen muss. Der Prämienantrag enthält dann die vollen Ortsdaten.
 
 * Der Einfachheit halber habe ich die Business Intelligence hart codiert, also die Komponente welche die Prämie berechnet. Die Werte für Fahrzeugtypen sowie die verschiedenen Faktoren sind frei erfunden im Sinne der Aufgabe. In Realität würde man eine dynamischere Lösung benötigen, etwa einen separaten Service.
 
-* Als Datenbank habe ich Postgres gewählt. Als opensource Projekt ist sie bewährter Industriestandard und ist mit vielen Systemen kompatibel. Ebenso ist PgAdmin ist ein praktisckes Tool zur Verwaltung mit dem ich sehr gute Erfahrung habe.
-
-* Architektonisch habe ich mich für drei Microservices entschieden. Anhand der fachlichen Domäne getrennt gibt es einen Service für die Ortsdaten und einen für die Prämien. Zusätzlich gibt es einen Webservice der das UI serviert und API Anfragen an die anderen Services deligiert. Die Services kommunizieren untereinander und mit dem Frontend über HTTP/JSON APIs. Mehr dazu unter [Architektur](#architecture)
-
-* Für die Tests benutze ich JUnit, als bewährten Java Testing Standard. Für die Tests der Services kommt RestAssure hinzu. Die Testcases umfassen sowohl happy- als auch verschiedenste sad-cases um eine möglichst hohe Code-Coverage zu erreichen. Mithilfe von SpringRestDocs werden während der Tests Snippets für die Dokumentation generiert, was die Korrektheit der Dokumentation garantiert.
-
 * Eine simple Web Oberfläche habe ich in Angular erstellt. Da diese optinal ist hat sie (noch) keine Tests.
 
-* Weil die Domainsprache Deutsch ist während der Entwicklerjargon auf Englisch ist, lässt sich eine Vermischung der Sprachen im Code und in der Dokumentation leider nicht vermeiden. Der Rest von der README ist im Sinne der Softwaredokumentation auf Englisch verfasst.
+* Der Rest von der README dient als Softwaredokumentation und ist, bis auf deutsche Domänenbegriffe, auf Englisch verfasst.
 
 ## Architecture
 
@@ -91,8 +91,8 @@ The workflow for a successful user request consists of the following steps:
 
 ### Prequisites
 * JDK distribution (21 or higher) in `JAVA_HOME` environment variable
-* `docker` executable in `PATH` environment variable (tested with v27.4.0)
-* `npm` executable in `PATH` environment variable (tested with v10.9.2, NodeJs v23.7.0) 
+* `docker` executable in `PATH` environment variable (tested with Docker v27.4.0)
+* `npm` executable in `PATH` environment variable (tested with npm v10.9.2, NodeJs v23.7.0) 
 
 ### Build and Run
 * execute `build-all.bat` to build all components and create docker images for services
