@@ -54,5 +54,9 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+        <createIndex indexName="INDEX_POSTCODES_POSTLEIZZAHL"
+                     tableName="POSTCODES" schemaName="postcode_service">
+            <column name="postleitzahl"/>
+        </createIndex>
     </changeSet>
 </databaseChangeLog>
