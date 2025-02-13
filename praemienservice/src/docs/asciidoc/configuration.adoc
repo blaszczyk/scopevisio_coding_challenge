@@ -1,6 +1,6 @@
 = Configuration
 
-The PraemienAntragService is best configured by environment variables.
+The PraemienService is best configured by environment variables.
 
 |===
 |Variable |Default value

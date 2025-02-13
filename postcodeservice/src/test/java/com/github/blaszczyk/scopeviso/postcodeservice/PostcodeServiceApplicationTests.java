@@ -73,7 +73,7 @@ class PostcodeServiceApplicationTests {
 
 		final var documentation = document("get_location",
 				preprocessResponse(prettyPrint()),
-				pathParameters(parameterWithName("postleizzahl").description("Postleitzahl")),
+				pathParameters(parameterWithName("postleizzahl").description("Postcode")),
 				new ResponseBodySnippet(),
 				responseFields(LOCATION_FIELDS)
 		);
