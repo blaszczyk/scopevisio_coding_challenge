@@ -1,16 +1,22 @@
-# Prämien Application
+# VersicherungsPrämien Anwendung
 
-The Prämien Application allowes users to send premium requests to a ficticious german car insurance agency.
+Die VersicherungsPrämien Anwendung erlaubt es Kunden Prämienanträge zu stellen für eine fiktive Kraftfahrzeugversicherung
 
-## Concerning the Challenge
+## Kommentare zur Challenge
 
-* With the domain language being german, whereas programming standards are in english, a mixture of languages is unfortunately unavoidable. I chose to keep the documentation in english apart and hope it does not cause too much confusion.
+* Laut der Aufgabe soll der Kunde eine Postleitzahl eingeben, welche auf ein Bundesland abgebildet wird um den Region-Faktor zu ermitteln. Diese Abbildung ist jedoch nicht eindeutig, also es gibt Orte mit gleicher Postleitzahl in unterschiedlichen Bundesländern. Die implementierte Lösung ist, dass der Kunde, nachdem er die Postleitzahl eingegeben hat, noch einen entsprechenden Ort auswählen muss. Der Prämienantrag enthält dann die vollen Ortsdaten.
 
-* According to the exercise, the user should input a Postleitzahl which will be mapped to a Bundesland to compute the Prämie. However, this mapping is not unique as there are locations with same Postleitzahl located in a different Bundesland. To resolve this issue, the user must also select a location after entering a valid Postleitzahl. The full location data is then included in the request and persisted by the backend.
+* Der Einfachheit halber habe ich die Business Intelligence hart codiert, also die Komponente welche die Prämie berechnet. Die Werte für Fahrzeugtypen sowie die verschiedenen Faktoren sind frei erfunden im Sinne der Aufgabe. In Realität würde man eine dynamischere Lösung benötigen, etwa einen separaten Service.
 
-* For simplicity the business intelligence component, which computes the Praemie, is hard-coded and unit-tested. Values for the Fahrzeugtyp and the various factors are completely made-up for the sake of the exercise. In reality one would prefer a more dynamic solution, e.g. a separate service.
+* Als Datenbank habe ich Postgres gewählt. Als opensource Projekt ist sie bewährter Industriestandard und ist mit vielen Systemen kompatibel. Ebenso ist PgAdmin ist ein praktisckes Tool zur Verwaltung mit dem ich sehr gute Erfahrung habe.
 
-* Deployment
+* Architektonisch habe ich mich für drei Microservices entschieden. Anhand der fachlichen Domäne getrennt gibt es einen Service für die Ortsdaten und einen für die Prämien. Zusätzlich gibt es einen Webservice der das UI serviert und API Anfragen an die anderen Services deligiert. Die Services kommunizieren untereinander und mit dem Frontend über HTTP/JSON APIs. Mehr dazu unter [Architektur](#architecture)
+
+* Für die Tests benutze ich JUnit, als bewährten Java Testing Standard. Für die Tests der Services kommt RestAssure hinzu. Die Testcases umfassen sowohl happy- als auch verschiedenste sad-cases um eine möglichst hohe Code-Coverage zu erreichen. Mithilfe von SpringRestDocs werden während der Tests Snippets für die Dokumentation generiert, was die Korrektheit der Dokumentation garantiert.
+
+* Eine simple Web Oberfläche habe ich in Angular erstellt. Da diese optinal ist hat sie (noch) keine Tests.
+
+* Weil die Domainsprache Deutsch ist während der Entwicklerjargon auf Englisch ist, lässt sich eine Vermischung der Sprachen im Code und in der Dokumentation leider nicht vermeiden. Der Rest von der README ist im Sinne der Softwaredokumentation auf Englisch verfasst.
 
 ## Architecture
 
@@ -58,10 +64,10 @@ The workflow for a successful user request consists of the following steps:
 ### Web Service
 - **Spring Boot**, the standard for Java web services
 - **Spring WebFlux**, the reactive framework allowes an asynchroneous and resource efficient usage of service executor threads
-- **SpringCloudGateway** to route UI requests to backend services
+- **Spring Cloud Gateway** to route UI requests to backend services
 
 ### Persistence
-- **Postgres**, open source, widely compatible, industry standard database
+- **Postgres**, industry standard database
 - **Spring R2DBC**, reactive database queries in accordance with WebFlux
 - **Liquibase**, standatd for database initialization
 
@@ -80,7 +86,7 @@ The workflow for a successful user request consists of the following steps:
 * **Temurin & Alpine** a slim base image
 
 ### Frontend
-* **Angular/TypeScript** web developement framework
+* **Angular** web developement framework
 
 ## Quick Start
 
