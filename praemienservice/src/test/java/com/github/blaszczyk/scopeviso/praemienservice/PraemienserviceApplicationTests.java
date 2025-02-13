@@ -10,6 +10,9 @@ import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
@@ -102,7 +105,7 @@ class PraemienserviceApplicationTests {
 	@Autowired
 	private PraemienAnfrageRepository repository;
 
-	private static final Location SWISTTAL = new Location("Nordrhein-Westfalen", "Rhein-Sieg-Kreis", "Swisttal", "53913", null);
+	private static final Location SWISTTAL = new Location("Nordrhein-Westfalen", "Rhein-Sieg-Kreis", "Swisttal", "53913", "Müttinghoven");
 
 	@Test
 	void post_anfrage_requests_returns_200_with_response() {
@@ -145,6 +148,32 @@ class PraemienserviceApplicationTests {
 
 		final var expectedAnfrage = createPraemienAnfrage(id, fahrzeugtyp, kilometerleistung, expectedPraemie, SWISTTAL);
 		assertEquals(expectedAnfrage, persistedAnfrage);
+	}
+
+	private static Stream<Arguments> invalidRequests() {
+		return Stream.of(
+				Arguments.of(1000, Fahrzeugtyp.PKW, null),
+				Arguments.of(1000, Fahrzeugtyp.PKW, "notAPostCode"),
+				Arguments.of(1000, null, "53121"),
+				Arguments.of(0, Fahrzeugtyp.PKW, "53121"),
+				Arguments.of(-1000, Fahrzeugtyp.PKW, "53121")
+		);
+	}
+
+	@ParameterizedTest
+	@MethodSource("invalidRequests")
+	void post_anfrage_requests_returns_400_for_invalid_request(final int kilometerleistung, final Fahrzeugtyp fahrzeugtyp, final String postleitzahl) {
+
+		final var request = new PraemienAnfrageRequest(kilometerleistung, fahrzeugtyp,
+				"Nordrhein-Westfalen", "Bonn", "Bonn", postleitzahl, "Endenich");
+
+		given(this.spec)
+			.body(request)
+			.header("content-type", ContentType.JSON)
+		.when()
+			.post("/anfrage")
+		.then()
+			.statusCode(400);
 	}
 
 	@Test

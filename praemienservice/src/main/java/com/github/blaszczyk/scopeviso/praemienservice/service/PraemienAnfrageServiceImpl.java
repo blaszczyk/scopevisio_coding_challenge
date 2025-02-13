@@ -31,12 +31,17 @@ public class PraemienAnfrageServiceImpl implements PraemienAnfrageService {
     
     @Override
     public Mono<ResponseEntity<PraemienAnfrageResponse>> postPraemienAnfrage(PraemienAnfrageRequest anfrage) {
-        return postcodeClient.getLocations(anfrage.postleitzahl())
-                .doOnNext(PraemienAnfrageRequestValidator.validate(anfrage))
-                .map(ignore -> PraemienCalculator.calculate(anfrage))
-                .flatMap(persist(anfrage))
-                .map(ResponseEntity::ok)
-                .onErrorResume(this::handleError);
+        if(PraemienAnfrageRequestValidator.validateInput(anfrage)) {
+            return postcodeClient.getLocations(anfrage.postleitzahl())
+                    .doOnNext(PraemienAnfrageRequestValidator.validateLocation(anfrage))
+                    .map(ignore -> PraemienCalculator.calculate(anfrage))
+                    .flatMap(persist(anfrage))
+                    .map(ResponseEntity::ok)
+                    .onErrorResume(this::handleError);
+        }
+        else {
+            return Mono.just(ResponseEntity.badRequest().build());
+        }
     }
 
     @Override
