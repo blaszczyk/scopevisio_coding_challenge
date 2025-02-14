@@ -105,7 +105,7 @@ class PraemienserviceApplicationTests {
 	@Autowired
 	private PraemienAntragRepository repository;
 
-	private static final Location SWISTTAL = new Location("Nordrhein-Westfalen", "Rhein-Sieg-Kreis", "Swisttal", "53913", "Müttinghoven");
+	private static final Location SWISTTAL = new Location("Nordrhein-Westfalen", "Rhein-Sieg-Kreis", "Swisttal", "53913", "Morenhoven");
 
 	@Test
 	void post_antrag_requests_returns_200_with_response() {

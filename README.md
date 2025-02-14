@@ -4,19 +4,19 @@ Die VersicherungsPrämien Anwendung erlaubt es Kunden Prämienanträge zu stelle
 
 ## Kommentare zur Challenge
 
-* Architektonisch besteht die Anwendung aus drei Microservices. Anhand der fachlichen Domäne getrennt gibt es einen Service für die Ortsdaten und einen für die Prämien. Dazu kommt ein Webservice der ein Web UI serviert und API Anfragen an die anderen Services deligiert. Die Services kommunizieren untereinander und mit dem UI über HTTP/JSON APIs. Mehr dazu unter [Architektur](#architecture).
+- Architektonisch besteht die Anwendung aus drei Microservices. Anhand der fachlichen Domäne getrennt gibt es einen Service für die Ortsdaten und einen für die Prämien. Dazu kommt ein Webservice der ein Web UI serviert und API Anfragen an die anderen Services deligiert. Die Services kommunizieren untereinander und mit dem UI über HTTP/JSON APIs. Mehr dazu unter [Architektur](#architecture).
 
-* Als Datenbank habe ich Postgres gewählt. Als opensource Projekt ist sie bewährter Industriestandard und ist mit vielen Systemen kompatibel. Ebenso ist PgAdmin ist ein praktisckes Tool zu derer Verwaltung mit dem ich sehr gute Erfahrung habe.
+- Als Datenbank habe ich Postgres gewählt. Als opensource Projekt ist sie bewährter Industriestandard und ist mit vielen Systemen kompatibel. Ebenso ist PgAdmin ist ein praktisckes Tool zu derer Verwaltung mit dem ich sehr gute Erfahrung habe.
 
-* Für die Tests wird JUnit benutzt. Dazu bietet RestAssure ein deklaratives Framework zum testen der HTTP Services. Die Testcases umfassen sowohl happy- als auch verschiedenste sad-cases um eine möglichst hohe Code-Coverage zu erreichen. Mithilfe von SpringRestDocs werden während der Testausführung Snippets für die Dokumentation generiert, was die Korrektheit der Dokumentation garantiert.
+- Für die Tests wird JUnit benutzt. Dazu bietet RestAssure ein deklaratives Framework zum testen der HTTP Services. Die Testcases umfassen sowohl happy- als auch verschiedenste sad-cases um eine möglichst hohe Code-Coverage zu erreichen. Mithilfe von SpringRestDocs werden während der Testausführung Snippets für die Dokumentation generiert, was die Korrektheit der Dokumentation garantiert.
 
-* Laut der Aufgabe soll der Kunde eine Postleitzahl eingeben, welche auf ein Bundesland abgebildet wird um den Region-Faktor zu ermitteln. Diese Abbildung ist jedoch nicht eindeutig, also es gibt Orte mit gleicher Postleitzahl in unterschiedlichen Bundesländern. Die hier implementierte Lösung sieht vor, dass der Kunde, nachdem er die Postleitzahl eingegeben hat, noch einen entsprechenden Ort auswählen muss. Der Prämienantrag enthält dann die vollen Ortsdaten.
+- Laut der Aufgabe soll der Kunde eine Postleitzahl eingeben, welche auf ein Bundesland abgebildet wird um den Region-Faktor zu ermitteln. Diese Abbildung ist jedoch nicht eindeutig, also es gibt Orte mit gleicher Postleitzahl in unterschiedlichen Bundesländern(z.B. 17337). Die hier implementierte Lösung sieht vor, dass der Kunde, nachdem er die Postleitzahl eingegeben hat, noch einen entsprechenden Ort auswählen muss. Dadurch wird die Zuordnung eindeutig. Der persistierte Prämienantrag enthält entsprechend die vollen Ortsdaten.
 
-* Der Einfachheit halber habe ich die Business Intelligence hart codiert, also die Komponente welche die Prämie berechnet. Die Werte für Fahrzeugtypen sowie die verschiedenen Faktoren sind frei erfunden im Sinne der Aufgabe. In Realität würde man eine dynamischere Lösung benötigen, etwa einen separaten Service.
+- Der Einfachheit halber habe ich die Komponente zur Berechnung der Prämie hart codiert. Die Werte für Fahrzeugtypen sowie die verschiedenen Faktoren sind im Sinne der Aufgabe frei erfunden. In Realität würde man eine dynamischere Lösung benötigen, etwa einen separaten Service.
 
-* Eine simple Web Oberfläche habe ich in Angular erstellt. Da diese optinal ist hat sie (noch) keine Tests.
+- Eine simple Web Oberfläche habe ich in Angular erstellt. Da diese optinal ist hat sie (noch) keine Tests.
 
-* Der Rest von der README dient als Softwaredokumentation und ist, bis auf deutsche Domänenbegriffe, auf Englisch verfasst.
+- Der Rest von der README dient als Softwaredokumentation und ist, bis auf deutsche Domänenbegriffe, auf englisch verfasst.
 
 ## Architecture
 
@@ -26,38 +26,38 @@ The application consists of three microservices and a web UI. The services and t
 The responsibilities of the components are the following:
 
 ### PostCodeService
-* loads location data into database
-* serves locations for queried Postleitzahl
+- loads location data into database
+- serves locations for queried Postleitzahl
 
 ### PraemienService
-* accepts PraemienAntrag requests
-* validates requests using PostCodeService
-* computes Praemie
-* persists PraemienAntrag summary
-* serves PraemienAntrag summary
+- accepts PraemienAntrag requests
+- validates requests using PostCodeService
+- computes Praemie
+- persists PraemienAntrag summary
+- serves PraemienAntrag summary
 
 ### Web UI
-* web form for convenient user input
-* summary page
+- web form for convenient user input
+- summary page
 
 ### WebService + API Gateway
-* serves static Web UI distribution
-* routes API requests to encapsulated backend services
+- serves static Web UI distribution
+- routes API requests to encapsulated backend services
 
 #### Other Possible Responsibilities
-* Authentication
-* Session management
-* Security issues
+- Authentication
+- Session management
+- Security issues
 
 ## Workflow
 The workflow for a successful user request consists of the following steps:
-* User enters Fahrzeugtyp, Kilometerleistung and Postleitzahl
-* UI requests locations for provided Postleitzahl from PostCodeService
-* User selects location and clicks send-button
-* UI sends request to PraemienService
-* PraemienService requests locations from PostCodeService to validate user request
-* PraemienService calculates Praemie, persists summary and responds
-* UI redirects to summary page
+- User enters Fahrzeugtyp, Kilometerleistung and Postleitzahl
+- UI requests locations for provided Postleitzahl from PostCodeService
+- User selects location and clicks send-button
+- UI sends request to PraemienService
+- PraemienService requests locations from PostCodeService to validate user request
+- PraemienService calculates Praemie, persists summary and responds
+- UI redirects to summary page
 
 ## Technology Stack
 
