@@ -1,6 +1,6 @@
 = Get Summary
 
-Get the summary.
+Get the summary of the PraemienAntrag
 
 == Request
 
