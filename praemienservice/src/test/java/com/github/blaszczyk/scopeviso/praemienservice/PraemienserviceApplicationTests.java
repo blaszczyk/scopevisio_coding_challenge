@@ -116,8 +116,7 @@ class PraemienserviceApplicationTests {
 
 		mockPostcodeService.createGetLocationsExpectation("53913", 200, List.of(SWISTTAL));
 
-		final var request = new PraemienAntragRequest(kilometerleistung, fahrzeugtyp, SWISTTAL.bundesland(),
-				SWISTTAL.kreis(), SWISTTAL.stadt(), SWISTTAL.postleitzahl(), SWISTTAL.bezirk());
+		final var request = new PraemienAntragRequest(kilometerleistung, fahrzeugtyp, SWISTTAL);
 
 		final var documentation = document("post_antrag",
 				preprocessRequest(prettyPrint()),
@@ -164,8 +163,8 @@ class PraemienserviceApplicationTests {
 	@MethodSource("invalidRequests")
 	void post_antrag_requests_returns_400_for_invalid_request(final int kilometerleistung, final Fahrzeugtyp fahrzeugtyp, final String postleitzahl) {
 
-		final var request = new PraemienAntragRequest(kilometerleistung, fahrzeugtyp,
-				"Nordrhein-Westfalen", "Bonn", "Bonn", postleitzahl, "Endenich");
+		final Location ort = new Location("Nordrhein-Westfalen", "Bonn", "Bonn", postleitzahl, "Endenich");
+		final var request = new PraemienAntragRequest(kilometerleistung, fahrzeugtyp, ort);
 
 		given(this.spec)
 			.body(request)
@@ -181,8 +180,9 @@ class PraemienserviceApplicationTests {
 
 		mockPostcodeService.createGetLocationsExpectation("53913", 200, List.of(SWISTTAL));
 
-		final var request = new PraemienAntragRequest(14000, Fahrzeugtyp.PKW, SWISTTAL.bundesland(),
+		final Location unknownLocation = new Location(SWISTTAL.bundesland(),
 				SWISTTAL.kreis(), "Nicht Swisttal", SWISTTAL.postleitzahl(), SWISTTAL.bezirk());
+		final var request = new PraemienAntragRequest(14000, Fahrzeugtyp.PKW, unknownLocation);
 
 		given(this.spec)
 			.body(request)
@@ -222,18 +222,19 @@ class PraemienserviceApplicationTests {
 						.jsonPath()
 						.getObject(".", PraemienAntragSummary.class);
 		final var expectedSummary = new PraemienAntragSummary(id, expectedPraemie, kilometerleistung, fahrzeugtyp,
-				SWISTTAL.bundesland(), SWISTTAL.kreis(), SWISTTAL.stadt(), SWISTTAL.postleitzahl(), SWISTTAL.bezirk());
+				SWISTTAL);
 		assertEquals(expectedSummary, praemienAntragSummary);
 	}
 
 	private static final List<FieldDescriptor> ANTRAG_REQUEST_FIELDS = List.of(
 			fieldWithPath("kilometerleistung").description("Milage, must be positive"),
 			fieldWithPath("fahrzeugtyp").description("Type of Vehicle, values are " + Arrays.toString(Fahrzeugtyp.values())),
-			fieldWithPath("bundesland").description("Federal State"),
-			fieldWithPath("kreis").description("Municipality"),
-			fieldWithPath("stadt").description("City"),
-			fieldWithPath("postleitzahl").description("Postcode"),
-			fieldWithPath("bezirk").optional().description("District, optional")
+			fieldWithPath("ort").description("Location"),
+			fieldWithPath("ort.bundesland").description("Federal State"),
+			fieldWithPath("ort.kreis").description("Municipality"),
+			fieldWithPath("ort.stadt").description("City"),
+			fieldWithPath("ort.postleitzahl").description("Postcode"),
+			fieldWithPath("ort.bezirk").optional().description("District, optional")
 	);
 
 	private static final List<FieldDescriptor> ANTRAG_RESPONSE_FIELDS = List.of(

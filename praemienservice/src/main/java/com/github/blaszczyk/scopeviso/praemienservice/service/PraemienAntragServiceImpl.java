@@ -31,9 +31,9 @@ public class PraemienAntragServiceImpl implements PraemienAntragService {
     
     @Override
     public Mono<ResponseEntity<PraemienAntragResponse>> postPraemienAntrag(PraemienAntragRequest antrag) {
-        if(PraemienAntragRequestValidator.validateInput(antrag)) {
-            return postcodeClient.getLocations(antrag.postleitzahl())
-                    .doOnNext(PraemienAntragRequestValidator.validateLocation(antrag))
+        if(PraemienAntragRequestValidator.isRequestValid(antrag)) {
+            return postcodeClient.getLocations(antrag.ort().postleitzahl())
+                    .doOnNext(PraemienAntragRequestValidator.validateLocation(antrag.ort()))
                     .map(ignore -> PraemienCalculator.calculate(antrag))
                     .flatMap(persist(antrag))
                     .map(ResponseEntity::ok)

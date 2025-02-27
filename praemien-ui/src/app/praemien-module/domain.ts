@@ -12,9 +12,10 @@ export enum Fahrzeugtyp {
     ZWEIRAD = 'ZWEIRAD'
 }
 
-export interface IPraemienAntragRequest extends ILocation {
+export interface IPraemienAntragRequest {
     kilometerleistung: number;
     fahrzeugtyp: Fahrzeugtyp;
+    ort: ILocation;
 }
 
 export interface IPraemienAntragResponse {

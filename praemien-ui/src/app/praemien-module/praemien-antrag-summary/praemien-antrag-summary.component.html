@@ -11,23 +11,23 @@
         </tr>
         <tr>
             <td>Bundesland</td>
-            <td>{{summary.bundesland}}</td>
+            <td>{{summary.ort.bundesland}}</td>
         </tr>
         <tr>
             <td>Kreis</td>
-            <td>{{summary.kreis}}</td>
+            <td>{{summary.ort.kreis}}</td>
         </tr>
         <tr>
             <td>Stadt/Gemeinde</td>
-            <td>{{summary.stadt}}</td>
+            <td>{{summary.ort.stadt}}</td>
         </tr>
-        <tr *ngIf="summary.bezirk">
+        <tr *ngIf="summary.ort.bezirk">
             <td>Bezirk</td>
-            <td>{{summary.bezirk}}</td>
+            <td>{{summary.ort.bezirk}}</td>
         </tr>
         <tr>
             <td>Postleitzahl</td>
-            <td>{{summary.postleitzahl}}</td>
+            <td>{{summary.ort.postleitzahl}}</td>
         </tr>
         <tr>
             <td><b>Prämie</b></td>

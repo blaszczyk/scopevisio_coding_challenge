@@ -1,6 +1,7 @@
 package com.github.blaszczyk.scopeviso.praemienservice.bi;
 
 import com.github.blaszczyk.scopeviso.praemienservice.domain.Fahrzeugtyp;
+import com.github.blaszczyk.scopeviso.praemienservice.domain.Location;
 import com.github.blaszczyk.scopeviso.praemienservice.domain.PraemienAntragRequest;
 import com.github.blaszczyk.scopeviso.praemienservice.exception.UnknownBundeslandException;
 import org.junit.Test;
@@ -45,17 +46,17 @@ public class PraemienCalculatorTest {
     @MethodSource("praemienAntragTestCases")
     public void computes_premiums(final int kilometerleistung, final Fahrzeugtyp fahrzeugtyp,
                        final String bundesland, final int expectedPraemie) {
-        final PraemienAntragRequest request = new PraemienAntragRequest(kilometerleistung, fahrzeugtyp, bundesland,
-                null, null, null, null );
+        final Location ort = new Location(bundesland, null, null, null, null );
+        final PraemienAntragRequest request = new PraemienAntragRequest(kilometerleistung, fahrzeugtyp, ort);
         final int actualPraemie = PraemienCalculator.calculate(request);
         assertEquals(expectedPraemie, actualPraemie);
     }
 
     @Test
     public void throws_on_unknown_bundesland() {
+        final Location ort = new Location("Gibt es nicht", null, null, null, null );
         assertThrows(UnknownBundeslandException.class, () -> {
-            final PraemienAntragRequest request = new PraemienAntragRequest(1, LKW,
-                    "Gibt es nicht", null, null, null, null );
+            final PraemienAntragRequest request = new PraemienAntragRequest(1, LKW, ort);
             PraemienCalculator.calculate(request);
         });
     }

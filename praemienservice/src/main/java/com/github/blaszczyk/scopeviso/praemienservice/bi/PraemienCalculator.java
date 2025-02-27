@@ -8,7 +8,7 @@ public final class PraemienCalculator {
     public static int calculate(final PraemienAntragRequest antrag) {
         final float floatValue = KilometerLeistungsFaktorCalculator.calculate(antrag.kilometerleistung())
                 * FahrzeugtypFaktorCalculator.calculate(antrag.fahrzeugtyp())
-                * RegionFaktorCalculator.calculate(antrag.bundesland());
+                * RegionFaktorCalculator.calculate(antrag.ort().bundesland());
         return Math.round(floatValue);
     }
 

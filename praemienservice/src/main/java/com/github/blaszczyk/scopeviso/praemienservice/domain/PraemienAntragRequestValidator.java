@@ -10,18 +10,17 @@ public class PraemienAntragRequestValidator {
 
     private static final Pattern PLZ_PATTERN = Pattern.compile("\\d{5}");
 
-    public static boolean validateInput(PraemienAntragRequest request) {
-        return request.postleitzahl() != null
-                && PLZ_PATTERN.matcher(request.postleitzahl()).matches()
+    public static boolean isRequestValid(PraemienAntragRequest request) {
+        return request.ort().postleitzahl() != null
+                && PLZ_PATTERN.matcher(request.ort().postleitzahl()).matches()
                 && request.kilometerleistung() > 0
                 && request.fahrzeugtyp() != null;
     }
 
-    public static Consumer<? super List<Location>> validateLocation(PraemienAntragRequest antrag) {
-        final Location antragLocation = new Location(antrag.bundesland(), antrag.kreis(), antrag.stadt(), antrag.postleitzahl(), antrag.bezirk());
-        return responseLocations -> {
-            if (!responseLocations.contains(antragLocation)){
-                throw new UnknownLocationException(antragLocation);
+    public static Consumer<List<Location>> validateLocation(Location location) {
+       return locations -> {
+            if (!locations.contains(location)){
+                throw new UnknownLocationException(location);
             }
         };
     }

@@ -60,13 +60,8 @@ export class PraemienAntragComponent {
   }
 
   requestPraemienAntrag() {
-    const selectedLocation = this.selectedLocation!;
     const request: IPraemienAntragRequest = {
-        bundesland: selectedLocation.bundesland,
-        kreis: selectedLocation.kreis,
-        stadt: selectedLocation.stadt,
-        bezirk: selectedLocation.bezirk,
-        postleitzahl: selectedLocation.postleitzahl,
+        ort: this.selectedLocation!,
         kilometerleistung: this.kilometerleistung!,
         fahrzeugtyp: this.selectedFahrzeugtyp!
     };
