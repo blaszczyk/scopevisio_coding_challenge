@@ -48,7 +48,8 @@ public class PraemienAntragServiceImpl implements PraemienAntragService {
     public Mono<ResponseEntity<PraemienAntragSummary>> getSummary(UUID id) {
         return praemienAntragRepository.findByPraemienId(id)
                 .map(PraemienAntragTransformer::transformToSummary)
-                .map(ResponseEntity::ok);
+                .map(ResponseEntity::ok)
+                .switchIfEmpty(Mono.just(ResponseEntity.badRequest().build()));
     }
 
     private Function<Integer, Mono<PraemienAntragResponse>> persist(PraemienAntragRequest request) {

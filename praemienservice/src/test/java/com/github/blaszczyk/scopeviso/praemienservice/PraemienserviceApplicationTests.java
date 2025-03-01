@@ -226,6 +226,18 @@ class PraemienserviceApplicationTests {
 		assertEquals(expectedSummary, praemienAntragSummary);
 	}
 
+	@Test
+	void get_antrag_summary_returns_400_with_for_unknown_id() {
+
+		final UUID unknownId = UUID.randomUUID();
+
+		given(this.spec)
+			.when()
+				.get("/summary/{id}", unknownId)
+			.then()
+				.statusCode(400);
+	}
+
 	private static final List<FieldDescriptor> ANTRAG_REQUEST_FIELDS = List.of(
 			fieldWithPath("kilometerleistung").description("Milage, must be positive"),
 			fieldWithPath("fahrzeugtyp").description("Type of Vehicle, values are " + Arrays.toString(Fahrzeugtyp.values())),
