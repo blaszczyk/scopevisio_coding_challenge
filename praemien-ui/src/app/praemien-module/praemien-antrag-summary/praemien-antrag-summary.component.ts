@@ -2,11 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PraemienService } from '../praemien.service';
 import { IPraemienAntragSummary } from '../domain';
-import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-praemien-antrag-summary',
-  imports: [NgIf],
+  imports: [],
   templateUrl: './praemien-antrag-summary.component.html',
   styleUrl: './praemien-antrag-summary.component.css'
 })
