@@ -2,7 +2,7 @@
 
 Die VersicherungsPrämien Anwendung erlaubt es Kunden Prämienanträge zu stellen für eine fiktive Kraftfahrzeugversicherung
 
-## Kommentare zur Challenge
+# Kommentare zur Challenge
 
 - Architektonisch besteht die Anwendung aus drei Microservices. Anhand der fachlichen Domäne getrennt gibt es einen Service für die Ortsdaten und einen für die Prämien. Dazu kommt ein Webservice der ein Web UI serviert und API Anfragen an die anderen Services deligiert. Die Services kommunizieren untereinander und mit dem UI über HTTP/JSON APIs. Mehr dazu unter [Architektur](#architecture).
 
@@ -18,29 +18,29 @@ Die VersicherungsPrämien Anwendung erlaubt es Kunden Prämienanträge zu stelle
 
 - Der Rest von der README dient als Softwaredokumentation und ist, bis auf deutsche Domänenbegriffe, auf englisch verfasst.
 
-## Architecture
+# Architecture
 
 The application consists of three microservices and a web UI. The services and the UI use HTTP and JSON for communication. Data is persisted in a Postgres SQL database. The services are deployed as docker images.
 ![architecture_praemien.drawio.png](architecture_praemien.drawio.png)
 
 The responsibilities of the components are the following:
 
-### PostCodeService
+## PostCodeService
 - loads location data into database
 - serves locations for queried Postleitzahl
 
-### PraemienService
+## PraemienService
 - accepts PraemienAntrag requests
 - validates requests using PostCodeService
 - computes Praemie
 - persists PraemienAntrag summary
 - serves PraemienAntrag summary
 
-### Web UI
+## Web UI
 - web form for convenient user input
 - summary page
 
-### WebService + API Gateway
+## WebService + API Gateway
 - serves static Web UI distribution
 - routes API requests to encapsulated backend services
 
@@ -49,7 +49,7 @@ The responsibilities of the components are the following:
 - Session management
 - Security issues
 
-## Workflow
+# Workflow
 The workflow for a successful user request consists of the following steps:
 - User enters Fahrzeugtyp, Kilometerleistung and Postleitzahl
 - UI requests locations for provided Postleitzahl from PostCodeService
@@ -57,54 +57,54 @@ The workflow for a successful user request consists of the following steps:
 - UI sends request to PraemienService
 - PraemienService requests locations from PostCodeService to validate user request
 - PraemienService calculates Praemie, persists summary and responds
-- UI redirects to summary page
+- UI navigates to summary page
 
-## Technology Stack
+# Technology Stack
 
-### Web Service
+## Web Service
 - **Spring Boot**, the standard for Java web services
 - **Spring WebFlux**, the reactive framework allowes an asynchroneous and resource efficient usage of service executor threads
 - **Spring Cloud Gateway** to route UI requests to backend services
 
-### Persistence
+## Persistence
 - **Postgres**, established SQL database
 - **Spring R2DBC**, reactive database queries in accordance with Spring WebFlux
 - **Liquibase** for database initialization
 
-### Testing
+## Testing
 - **JUnit**, standard Java testing framework
 - **RestAssure** for declarative web service tests
 - **TestContainers** is used to provide a postgres database in a container for tests
 - **WireMock** to mock services in tests
 
-### Documentation
+## Documentation
 - **AsciiDoc** to generate documentation for services
 - **Spring RestDocs** uses tests to generate API documentation and ensure validity
 
-### Deployment
+## Deployment
 - **Docker** standard for container deployment
 - **Temurin & Alpine** a slim base image
 
-### Frontend
+## Frontend
 - **Angular** web developement framework
 
-## Quick Start
+# Quick Start
 
-### Prequisites
+## Prequisites
 - JDK distribution (21 or higher) in `JAVA_HOME` environment variable
 - `docker` executable in `PATH` environment variable (tested with Docker v27.4.0)
 - `npm` executable in `PATH` environment variable (tested with npm v10.9.2, NodeJs v23.7.0) 
 
-### Build and Run
+## Build and Run
 - Execute `build-all.bat` to build all components and create docker images for services.
 - Execute `docker compose up -d` to start service stack. On initial startup the PostCodeService requires more time to initialize the database.
 - Visit http://localhost/ .
 
-### Test and Documentation
+## Test and Documentation
 - Execute `test-docs-all.bat` to test the services and assemble documentation.
 - The generated documentation can be found in the `docs/` folder.
 
-## TODO
+# TODO
 An incomplete list of improvements to make the application production-ready:
 - security
 - versioning
