@@ -4,9 +4,9 @@ Die VersicherungsPrämien Anwendung erlaubt es Kunden Prämienanträge zu stelle
 
 ## Kommentare zur Challenge
 
-- Architektonisch besteht die Anwendung aus drei Microservices. Anhand der fachlichen Domäne getrennt gibt es einen Service für die Ortsdaten und einen für die Prämien. Dazu kommt ein Webservice der ein Web UI serviert und API Anfragen an die anderen Services deligiert. Die Services kommunizieren untereinander und mit dem UI über HTTP/JSON APIs. Mehr dazu unter [Architektur](#architecture).
+- Architektonisch besteht die Anwendung aus drei Microservices. Anhand der fachlichen Domäne getrennt gibt es einen Service für die Ortsdaten und einen rund um die Prämien. Dazu kommt ein Webservice der ein Web UI serviert und API Anfragen an die anderen Services delegiert. Die Services kommunizieren untereinander und mit dem UI über HTTP/JSON APIs. Mehr dazu unter [Architektur](#architecture).
 
-- Als Datenbank habe ich Postgres gewählt. Als opensource Projekt ist sie bewährter Industriestandard und ist mit vielen Systemen kompatibel. Ebenso ist PgAdmin ist ein praktisckes Tool zu derer Verwaltung mit dem ich sehr gute Erfahrung habe.
+- Als Datenbank habe ich Postgres gewählt. Als opensource Projekt ist sie bewährter Industriestandard und ist mit vielen Systemen kompatibel. Ebenso ist PgAdmin ist ein praktisckes Tool zu deren Verwaltung mit dem ich sehr gute Erfahrung habe.
 
 - Für die Tests wird JUnit benutzt. Dazu bietet RestAssure ein deklaratives Framework zum testen der HTTP Services. Die Testcases umfassen sowohl happy- als auch verschiedenste sad-cases um eine möglichst hohe Code-Coverage zu erreichen. Mithilfe von SpringRestDocs werden während der Testausführung Snippets für die Dokumentation generiert, was die Korrektheit der Dokumentation garantiert.
 
@@ -14,7 +14,7 @@ Die VersicherungsPrämien Anwendung erlaubt es Kunden Prämienanträge zu stelle
 
 - Der Einfachheit halber habe ich die Komponente zur Berechnung der Prämie hart codiert. Die Werte für Fahrzeugtypen sowie die verschiedenen Faktoren sind im Sinne der Aufgabe frei erfunden. In Realität würde man eine dynamischere Lösung benötigen, etwa einen separaten Service.
 
-- Eine simple Web Oberfläche habe ich in Angular erstellt. Da diese optinal ist hat sie (noch) keine Tests.
+- Eine simple Web Oberfläche habe ich in Angular erstellt. Da diese optional ist hat sie (noch) keine Tests.
 
 - Der Rest von der README dient als Softwaredokumentation und ist, bis auf deutsche Domänenbegriffe, auf englisch verfasst.
 
@@ -63,7 +63,7 @@ The workflow for a successful user request consists of the following steps:
 
 ### Web Service
 - **Spring Boot**, the standard for Java web services
-- **Spring WebFlux**, the reactive framework allowes an asynchroneous and resource efficient usage of service executor threads
+- **Spring WebFlux**, the reactive framework allows an asynchroneous and resource efficient usage of service executor threads
 - **Spring Cloud Gateway** to route UI requests to backend services
 
 ### Persistence
