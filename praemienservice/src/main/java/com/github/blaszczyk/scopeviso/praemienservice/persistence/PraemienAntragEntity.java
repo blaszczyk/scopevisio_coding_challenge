@@ -1,6 +1,7 @@
 package com.github.blaszczyk.scopeviso.praemienservice.persistence;
 
 import com.github.blaszczyk.scopeviso.praemienservice.domain.Fahrzeugtyp;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.util.Objects;
@@ -9,7 +10,8 @@ import java.util.UUID;
 @Table(name = "PRAEMIEN_ANTRAG")
 public class PraemienAntragEntity {
 
-    private UUID praemienId;
+    @Id
+    private UUID id;
 
     private int kilometerleistung;
 
@@ -27,12 +29,12 @@ public class PraemienAntragEntity {
 
     private int praemie;
 
-    public UUID getPraemienId() {
-        return praemienId;
+    public UUID getId() {
+        return id;
     }
 
-    public void setPraemienId(UUID praemienId) {
-        this.praemienId = praemienId;
+    public void setId(UUID id) {
+        this.id = id;
     }
 
     public int getKilometerleistung() {
@@ -104,18 +106,18 @@ public class PraemienAntragEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PraemienAntragEntity that = (PraemienAntragEntity) o;
-        return kilometerleistung == that.kilometerleistung && praemie == that.praemie && Objects.equals(praemienId, that.praemienId) && fahrzeugtyp == that.fahrzeugtyp && Objects.equals(bundesland, that.bundesland) && Objects.equals(kreis, that.kreis) && Objects.equals(stadt, that.stadt) && Objects.equals(postleitzahl, that.postleitzahl) && Objects.equals(bezirk, that.bezirk);
+        return kilometerleistung == that.kilometerleistung && praemie == that.praemie && Objects.equals(id, that.id) && fahrzeugtyp == that.fahrzeugtyp && Objects.equals(bundesland, that.bundesland) && Objects.equals(kreis, that.kreis) && Objects.equals(stadt, that.stadt) && Objects.equals(postleitzahl, that.postleitzahl) && Objects.equals(bezirk, that.bezirk);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(praemienId, kilometerleistung, fahrzeugtyp, bundesland, kreis, stadt, postleitzahl, bezirk, praemie);
+        return Objects.hash(id, kilometerleistung, fahrzeugtyp, bundesland, kreis, stadt, postleitzahl, bezirk, praemie);
     }
 
     @Override
     public String toString() {
         return "PraemienAntrag{" +
-                "praemienId=" + praemienId +
+                "id=" + id +
                 ", kilometerleistung=" + kilometerleistung +
                 ", fahrzeugtyp=" + fahrzeugtyp +
                 ", bundesland='" + bundesland + '\'' +

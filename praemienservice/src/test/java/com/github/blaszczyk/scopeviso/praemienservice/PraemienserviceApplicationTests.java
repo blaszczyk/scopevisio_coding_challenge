@@ -143,7 +143,7 @@ class PraemienserviceApplicationTests {
 
 		final UUID id = praemienAntragResponse.id();
 
-		final PraemienAntragEntity persistedAntrag = repository.findByPraemienId(id).block();
+		final PraemienAntragEntity persistedAntrag = repository.findById(id).block();
 
 		final var expectedAntrag = createPraemienAntrag(id, fahrzeugtyp, kilometerleistung, expectedPraemie, SWISTTAL);
 		assertEquals(expectedAntrag, persistedAntrag);
@@ -206,10 +206,9 @@ class PraemienserviceApplicationTests {
 				responseFields(ANTRAG_SUMMARY_FIELDS)
 		);
 
-		final UUID id = UUID.randomUUID();
+		final var persistedAntrag = createPraemienAntrag(null, fahrzeugtyp, kilometerleistung, expectedPraemie, SWISTTAL);
 
-		final var persistedAntrag = createPraemienAntrag(id, fahrzeugtyp, kilometerleistung, expectedPraemie, SWISTTAL);
-		repository.save(persistedAntrag).block();
+		final UUID id = repository.save(persistedAntrag).block().getId();
 
 		final PraemienAntragSummary praemienAntragSummary =
 				given(this.spec)
@@ -263,7 +262,7 @@ class PraemienserviceApplicationTests {
 															  final int kilometerleistung, final int praemie,
 															  final Location location) {
 		final var result = new PraemienAntragEntity();
-		result.setPraemienId(id);
+		result.setId(id);
 		result.setPraemie(praemie);
 		result.setKilometerleistung(kilometerleistung);
 		result.setFahrzeugtyp(fahrzeugtyp);

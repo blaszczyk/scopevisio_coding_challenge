@@ -7,6 +7,10 @@
         <sql>CREATE SCHEMA praemien_service</sql>
     </changeSet>
 
+    <changeSet id="create_extension_ossp_uuid" author="michael">
+        <sql>CREATE EXTENSION IF NOT EXISTS "uuid-ossp"</sql>
+    </changeSet>
+
     <include file="db/changelog/create_table_praemien_antrag.xml" />
 
 </databaseChangeLog>

@@ -46,7 +46,7 @@ public class PraemienAntragServiceImpl implements PraemienAntragService {
 
     @Override
     public Mono<ResponseEntity<PraemienAntragSummary>> getSummary(UUID id) {
-        return praemienAntragRepository.findByPraemienId(id)
+        return praemienAntragRepository.findById(id)
                 .map(PraemienAntragTransformer::transformToSummary)
                 .map(ResponseEntity::ok)
                 .switchIfEmpty(Mono.just(ResponseEntity.badRequest().build()));
@@ -56,7 +56,7 @@ public class PraemienAntragServiceImpl implements PraemienAntragService {
         return praemie -> {
             final PraemienAntragEntity praemienAntrag = PraemienAntragTransformer.transform(request, praemie);
             return praemienAntragRepository.save(praemienAntrag)
-                    .map(antrag -> new PraemienAntragResponse(praemie, antrag.getPraemienId()));
+                    .map(antrag -> new PraemienAntragResponse(praemie, antrag.getId()));
         };
     }
 
