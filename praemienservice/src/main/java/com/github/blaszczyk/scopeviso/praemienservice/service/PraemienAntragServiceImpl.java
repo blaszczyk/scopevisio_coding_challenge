@@ -6,7 +6,6 @@ import com.github.blaszczyk.scopeviso.praemienservice.domain.PraemienAntragReque
 import com.github.blaszczyk.scopeviso.praemienservice.domain.PraemienAntragRequestValidator;
 import com.github.blaszczyk.scopeviso.praemienservice.domain.PraemienAntragResponse;
 import com.github.blaszczyk.scopeviso.praemienservice.domain.PraemienAntragSummary;
-import com.github.blaszczyk.scopeviso.praemienservice.persistence.PraemienAntragEntity;
 import com.github.blaszczyk.scopeviso.praemienservice.persistence.PraemienAntragRepository;
 import com.github.blaszczyk.scopeviso.praemienservice.persistence.PraemienAntragTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,6 @@ import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Mono;
 
 import java.util.UUID;
-import java.util.function.Function;
 
 @RestController
 public class PraemienAntragServiceImpl implements PraemienAntragService {
@@ -35,7 +33,9 @@ public class PraemienAntragServiceImpl implements PraemienAntragService {
             return postcodeClient.getLocations(antrag.ort().postleitzahl())
                     .doOnNext(PraemienAntragRequestValidator.validateLocation(antrag.ort()))
                     .map(ignore -> PraemienCalculator.calculate(antrag))
-                    .flatMap(persist(antrag))
+                    .map(praemie -> PraemienAntragTransformer.transformToEntity(antrag, praemie))
+                    .flatMap(praemienAntragRepository::save)
+                    .map(PraemienAntragTransformer::transformToResponse)
                     .map(ResponseEntity::ok)
                     .onErrorResume(this::handleError);
         }
@@ -50,14 +50,6 @@ public class PraemienAntragServiceImpl implements PraemienAntragService {
                 .map(PraemienAntragTransformer::transformToSummary)
                 .map(ResponseEntity::ok)
                 .switchIfEmpty(Mono.just(ResponseEntity.badRequest().build()));
-    }
-
-    private Function<Integer, Mono<PraemienAntragResponse>> persist(PraemienAntragRequest request) {
-        return praemie -> {
-            final PraemienAntragEntity praemienAntrag = PraemienAntragTransformer.transform(request, praemie);
-            return praemienAntragRepository.save(praemienAntrag)
-                    .map(antrag -> new PraemienAntragResponse(praemie, antrag.getId()));
-        };
     }
 
     private Mono<ResponseEntity<PraemienAntragResponse>> handleError(Throwable error) {
