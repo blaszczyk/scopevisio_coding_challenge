@@ -18,6 +18,8 @@ import { Router } from '@angular/router';
 })
 export class PraemienAntragComponent {
 
+  private static PLZ_REGEX = /[0-9]{5}/;
+
   postleitzahl: string = '';
 
   locations: ILocation[] = [];
@@ -39,9 +41,9 @@ export class PraemienAntragComponent {
     private readonly router: Router) {}
 
   updateLocations() {
-    const regex = /[0-9]{5}/;
     this.selectedLocation = null;
-    if ( regex.test(this.postleitzahl) ) {
+    this.locations = [];
+    if ( PraemienAntragComponent.PLZ_REGEX.test(this.postleitzahl) ) {
       this.locationService.getLocations(this.postleitzahl)
         .subscribe(locations => {
           this.locations = locations;
@@ -49,9 +51,6 @@ export class PraemienAntragComponent {
             this.selectedLocation = locations[0];
           }
         });
-    }
-    else {
-      this.locations = [];
     }
   }
 

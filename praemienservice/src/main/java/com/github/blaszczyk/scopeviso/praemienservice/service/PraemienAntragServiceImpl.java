@@ -31,7 +31,7 @@ public class PraemienAntragServiceImpl implements PraemienAntragService {
     public Mono<ResponseEntity<PraemienAntragResponse>> postPraemienAntrag(PraemienAntragRequest antrag) {
         if(PraemienAntragRequestValidator.isRequestValid(antrag)) {
             return postcodeClient.getLocations(antrag.ort().postleitzahl())
-                    .doOnNext(PraemienAntragRequestValidator.validateLocation(antrag.ort()))
+                    .doOnNext(validLocations -> PraemienAntragRequestValidator.validateLocation(antrag.ort(), validLocations))
                     .map(ignore -> PraemienCalculator.calculate(antrag))
                     .map(praemie -> PraemienAntragTransformer.transformToEntity(antrag, praemie))
                     .flatMap(praemienAntragRepository::save)
@@ -52,7 +52,7 @@ public class PraemienAntragServiceImpl implements PraemienAntragService {
                 .switchIfEmpty(Mono.just(ResponseEntity.badRequest().build()));
     }
 
-    private Mono<ResponseEntity<PraemienAntragResponse>> handleError(Throwable error) {
+    private <T> Mono<ResponseEntity<T>> handleError(Throwable error) {
         final HttpStatusCode status;
         if (error instanceof ResponseStatusException responseStatusException) {
             status = responseStatusException.getStatusCode();

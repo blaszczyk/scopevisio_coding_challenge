@@ -8,11 +8,13 @@ path = '/praemien/api/antrag'
 antrag = {
 	'kilometerleistung': 30000,
 	'fahrzeugtyp': 'LKW',
-	'bundesland': 'Nordrhein-Westfalen',
-	'kreis': 'Rhein-Sieg-Kreis',
-	'stadt': 'Troisdorf',
-	'postleitzahl': '53844',
-	'bezirk': 'Kriegsdorf'
+	'ort': {
+		'bundesland': 'Nordrhein-Westfalen',
+		'kreis': 'Rhein-Sieg-Kreis',
+		'stadt': 'Troisdorf',
+		'postleitzahl': '53844',
+		'bezirk': 'Kriegsdorf'
+	}
 }
 request_body = json.dumps(antrag)
 print('request: POST@http://' + host + path)

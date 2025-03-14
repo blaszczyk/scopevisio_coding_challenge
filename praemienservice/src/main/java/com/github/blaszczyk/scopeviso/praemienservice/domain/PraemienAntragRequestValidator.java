@@ -17,12 +17,10 @@ public class PraemienAntragRequestValidator {
                 && request.fahrzeugtyp() != null;
     }
 
-    public static Consumer<List<Location>> validateLocation(Location location) {
-       return locations -> {
-            if (!locations.contains(location)){
-                throw new UnknownLocationException(location);
-            }
-        };
+    public static void validateLocation(Location location, List<Location> validLocations) {
+        if (!validLocations.contains(location)){
+            throw new UnknownLocationException(location);
+        }
     }
 
     private PraemienAntragRequestValidator() {}
