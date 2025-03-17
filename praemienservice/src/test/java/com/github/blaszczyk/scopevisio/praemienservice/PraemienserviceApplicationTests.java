@@ -149,21 +149,25 @@ class PraemienserviceApplicationTests {
 		assertEquals(expectedAntrag, persistedAntrag);
 	}
 
+	private static Location locationWithPlz(final String postleitzahl) {
+		return new Location("Nordrhein-Westfalen", "Bonn", "Bonn", postleitzahl, "Endenich");
+	}
+
 	private static Stream<Arguments> invalidRequests() {
 		return Stream.of(
 				Arguments.of(1000, Fahrzeugtyp.PKW, null),
-				Arguments.of(1000, Fahrzeugtyp.PKW, "notAPostCode"),
-				Arguments.of(1000, null, "53121"),
-				Arguments.of(0, Fahrzeugtyp.PKW, "53121"),
-				Arguments.of(-1000, Fahrzeugtyp.PKW, "53121")
+				Arguments.of(1000, Fahrzeugtyp.PKW, locationWithPlz(null)),
+				Arguments.of(1000, Fahrzeugtyp.PKW, locationWithPlz("notAPostCode")),
+				Arguments.of(1000, null, locationWithPlz("53121")),
+				Arguments.of(0, Fahrzeugtyp.PKW, locationWithPlz("53121")),
+				Arguments.of(-1000, Fahrzeugtyp.PKW, locationWithPlz("53121"))
 		);
 	}
 
 	@ParameterizedTest
 	@MethodSource("invalidRequests")
-	void post_antrag_requests_returns_400_for_invalid_request(final int kilometerleistung, final Fahrzeugtyp fahrzeugtyp, final String postleitzahl) {
+	void post_antrag_requests_returns_400_for_invalid_request(final int kilometerleistung, final Fahrzeugtyp fahrzeugtyp, final Location ort) {
 
-		final Location ort = new Location("Nordrhein-Westfalen", "Bonn", "Bonn", postleitzahl, "Endenich");
 		final var request = new PraemienAntragRequest(kilometerleistung, fahrzeugtyp, ort);
 
 		given(this.spec)
