@@ -105,7 +105,7 @@ The workflow for a successful user request consists of the following steps:
 - The generated documentation can be found in the `docs/` folder.
 
 # TODO
-An incomplete list of improvements to make the application production-ready:
+An incomplete list of tasks to make the application production-ready:
 - security
 - versioning
 - CI/CD

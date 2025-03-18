@@ -98,14 +98,18 @@ class PraemienserviceApplicationTests {
 				.build();
 	}
 
-	@Test
-	void contextLoads() {
-	}
-
 	@Autowired
 	private PraemienAntragRepository repository;
 
+	private static final String PATH_POST_ANTRAG = "/antrag";
+
+	private static final String PATH_GET_SUMMARY = "/summary/{id}";
+
 	private static final Location SWISTTAL = new Location("Nordrhein-Westfalen", "Rhein-Sieg-Kreis", "Swisttal", "53913", "Morenhoven");
+
+	@Test
+	void contextLoads() {
+	}
 
 	@Test
 	void post_antrag_requests_returns_200_with_response() {
@@ -114,7 +118,7 @@ class PraemienserviceApplicationTests {
 		final Fahrzeugtyp fahrzeugtyp = Fahrzeugtyp.PKW;
 		final int expectedPraemie = 750;
 
-		mockPostcodeService.createGetLocationsExpectation("53913", 200, List.of(SWISTTAL));
+		mockPostcodeService.createGetLocationsExpectation(SWISTTAL.postleitzahl(), 200, List.of(SWISTTAL));
 
 		final var request = new PraemienAntragRequest(kilometerleistung, fahrzeugtyp, SWISTTAL);
 
@@ -132,7 +136,7 @@ class PraemienserviceApplicationTests {
 					.header("content-type", ContentType.JSON)
 					.filter(documentation)
 				.when()
-					.post("/antrag")
+					.post(PATH_POST_ANTRAG)
 				.then()
 					.statusCode(200)
 					.extract()
@@ -174,7 +178,7 @@ class PraemienserviceApplicationTests {
 			.body(request)
 			.header("content-type", ContentType.JSON)
 		.when()
-			.post("/antrag")
+			.post(PATH_POST_ANTRAG)
 		.then()
 			.statusCode(400);
 	}
@@ -192,7 +196,7 @@ class PraemienserviceApplicationTests {
 			.body(request)
 			.header("content-type", ContentType.JSON)
 		.when()
-			.post("/antrag")
+			.post(PATH_POST_ANTRAG)
 		.then()
 			.statusCode(400);
 	}
@@ -205,7 +209,7 @@ class PraemienserviceApplicationTests {
 
 		final var documentation = document("get_summary",
 				preprocessResponse(prettyPrint()),
-				pathParameters(parameterWithName("id").description("Id der Prämienantrag")),
+				pathParameters(parameterWithName("id").description("Id")),
 				new ResponseBodySnippet(),
 				responseFields(ANTRAG_SUMMARY_FIELDS)
 		);
@@ -218,7 +222,7 @@ class PraemienserviceApplicationTests {
 				given(this.spec)
 						.filter(documentation)
 				.when()
-						.get("/summary/{id}", id)
+						.get(PATH_GET_SUMMARY, id)
 				.then()
 						.statusCode(200)
 						.extract()
@@ -236,7 +240,7 @@ class PraemienserviceApplicationTests {
 
 		given(this.spec)
 			.when()
-				.get("/summary/{id}", unknownId)
+				.get(PATH_GET_SUMMARY, unknownId)
 			.then()
 				.statusCode(400);
 	}
