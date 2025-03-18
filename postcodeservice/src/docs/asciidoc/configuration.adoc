@@ -15,7 +15,7 @@ The PostCodeService is best configured by environment variables.
 |5432
 
 |DATABASE_NAME
-|scopeviso
+|scopevisio
 
 |DATABASE_USERNAME
 |postgres

@@ -3,7 +3,7 @@ call gradlew asciidoc
 cd ../praemienservice
 call gradlew asciidoc
 cd ../webservice
-call gradlew asciidoc
+call gradlew test asciidoc
 cd ..
 del /S /Q /F docs\*
 rmdir /S /Q docs

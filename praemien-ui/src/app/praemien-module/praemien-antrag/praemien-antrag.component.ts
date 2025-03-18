@@ -18,6 +18,8 @@ import { Router } from '@angular/router';
 })
 export class PraemienAntragComponent {
 
+  private static PLZ_REGEX = /[0-9]{5}/;
+
   postleitzahl: string = '';
 
   locations: ILocation[] = [];
@@ -39,9 +41,9 @@ export class PraemienAntragComponent {
     private readonly router: Router) {}
 
   updateLocations() {
-    const regex = /[0-9]{5}/;
     this.selectedLocation = null;
-    if ( regex.test(this.postleitzahl) ) {
+    this.locations = [];
+    if ( PraemienAntragComponent.PLZ_REGEX.test(this.postleitzahl) ) {
       this.locationService.getLocations(this.postleitzahl)
         .subscribe(locations => {
           this.locations = locations;
@@ -50,9 +52,6 @@ export class PraemienAntragComponent {
           }
         });
     }
-    else {
-      this.locations = [];
-    }
   }
 
   inputValid(): boolean {
@@ -60,13 +59,8 @@ export class PraemienAntragComponent {
   }
 
   requestPraemienAntrag() {
-    const selectedLocation = this.selectedLocation!;
     const request: IPraemienAntragRequest = {
-        bundesland: selectedLocation.bundesland,
-        kreis: selectedLocation.kreis,
-        stadt: selectedLocation.stadt,
-        bezirk: selectedLocation.bezirk,
-        postleitzahl: selectedLocation.postleitzahl,
+        ort: this.selectedLocation!,
         kilometerleistung: this.kilometerleistung!,
         fahrzeugtyp: this.selectedFahrzeugtyp!
     };

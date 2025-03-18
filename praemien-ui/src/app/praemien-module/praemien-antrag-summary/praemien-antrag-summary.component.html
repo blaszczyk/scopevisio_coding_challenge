@@ -1,37 +1,41 @@
-<div class="container" *ngIf="summary">
-    <h1>Zusammenfassung</h1>
-    <table>
-        <tr>
-            <td>Kilometerleistung</td>
-            <td>{{summary.kilometerleistung}}</td>
-        </tr>
-        <tr>
-            <td>Fahrzeugtyp</td>
-            <td>{{summary.fahrzeugtyp}}</td>
-        </tr>
-        <tr>
-            <td>Bundesland</td>
-            <td>{{summary.bundesland}}</td>
-        </tr>
-        <tr>
-            <td>Kreis</td>
-            <td>{{summary.kreis}}</td>
-        </tr>
-        <tr>
-            <td>Stadt/Gemeinde</td>
-            <td>{{summary.stadt}}</td>
-        </tr>
-        <tr *ngIf="summary.bezirk">
-            <td>Bezirk</td>
-            <td>{{summary.bezirk}}</td>
-        </tr>
-        <tr>
-            <td>Postleitzahl</td>
-            <td>{{summary.postleitzahl}}</td>
-        </tr>
-        <tr>
-            <td><b>Prämie</b></td>
-            <td><b>{{summary.praemie}}€</b> </td>
-        </tr>
-    </table>
-</div>
+@if (summary) {
+    <div class="container">
+        <h1>Zusammenfassung</h1>
+        <table>
+            <tr>
+                <td>Kilometerleistung</td>
+                <td>{{summary.kilometerleistung}}</td>
+            </tr>
+            <tr>
+                <td>Fahrzeugtyp</td>
+                <td>{{summary.fahrzeugtyp}}</td>
+            </tr>
+            <tr>
+                <td>Bundesland</td>
+                <td>{{summary.ort.bundesland}}</td>
+            </tr>
+            <tr>
+                <td>Kreis</td>
+                <td>{{summary.ort.kreis}}</td>
+            </tr>
+            <tr>
+                <td>Stadt/Gemeinde</td>
+                <td>{{summary.ort.stadt}}</td>
+            </tr>
+            @if (summary.ort.bezirk) {
+                <tr>
+                    <td>Bezirk</td>
+                    <td>{{summary.ort.bezirk}}</td>
+                </tr>
+            }
+            <tr>
+                <td>Postleitzahl</td>
+                <td>{{summary.ort.postleitzahl}}</td>
+            </tr>
+            <tr>
+                <td><b>Prämie</b></td>
+                <td><b>{{summary.praemie}}€</b> </td>
+            </tr>
+        </table>
+    </div>
+}

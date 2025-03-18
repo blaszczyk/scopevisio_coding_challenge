@@ -9,7 +9,7 @@ configurations {
 	asciidoctorExt
 }
 
-group = 'com.github.blaszczyk.scopeviso'
+group = 'com.github.blaszczyk.scopevisio'
 version = '0.0.1-SNAPSHOT'
 
 java {
